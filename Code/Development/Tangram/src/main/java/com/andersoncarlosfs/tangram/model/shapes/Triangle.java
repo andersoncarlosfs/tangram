@@ -5,12 +5,23 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
-import java.awt.Polygon;
-
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
 public class Triangle extends Polygon {
+
+    public Triangle() {
+        super();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int getNpoints() {
+        return 4;
+    }
 
 }

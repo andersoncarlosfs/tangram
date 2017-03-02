@@ -5,19 +5,23 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
-import java.awt.Polygon;
-
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
 public class Trapeze extends Polygon {
 
-    public Trapeze(int xpoint, int ypoint) {
-        int x  = 1;
-        super(null, null, 4);
+    public Trapeze() {
+        super();
     }
-    
-    
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int getNpoints() {
+        return 4;
+    }
 
 }

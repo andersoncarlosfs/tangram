@@ -5,12 +5,23 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
-import java.awt.Rectangle;
-
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-public class Square extends Rectangle {
+public class Square extends Polygon {
+
+    public Square() {
+        super();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int getNpoints() {
+        return 4;
+    }
 
 }
