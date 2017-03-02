@@ -5,6 +5,8 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
+import java.awt.Point;
+
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
@@ -15,6 +17,10 @@ public class Square extends Polygon {
         super();
     }
 
+    public Square(Point point, Dimension dimension) {
+        super(point, dimension);
+    }
+
     /**
      *
      * @return
@@ -22,6 +28,17 @@ public class Square extends Polygon {
     @Override
     public int getNpoints() {
         return 4;
+    }
+
+    /**
+     *
+     */
+    @Override
+    protected void render() {
+        //setPoint(0, xpoints[0], ypoints[0]);
+        setPoint(1, xpoints[0] + dimension.width, ypoints[0]);
+        setPoint(2, xpoints[0] + dimension.width, ypoints[0] + dimension.height);
+        setPoint(3, xpoints[0], ypoints[0] + dimension.height);
     }
 
 }

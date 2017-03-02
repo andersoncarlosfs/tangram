@@ -13,12 +13,24 @@ import java.awt.Point;
  */
 public abstract class Polygon extends java.awt.Polygon {
 
-    private Point point;
-    private Dimension dimension;
+    protected Dimension dimension;
 
     public Polygon() {
         npoints = getNpoints();
     }
+
+    public Polygon(Point point, Dimension dimension) {
+        this();
+        this.dimension = dimension;
+        this.xpoints[0] = point.x;
+        this.ypoints[0] = point.y;
+        render();
+    }
+
+    /**
+     *
+     */
+    protected abstract void render();
 
     /**
      *
@@ -28,20 +40,72 @@ public abstract class Polygon extends java.awt.Polygon {
 
     /**
      *
-     * @return the point
+     * @return the position
      */
-    public Point getPoint() {
-        return point;
+    public Point getPosition() {
+        return new Point(xpoints[0], ypoints[0]);
     }
 
     /**
      *
-     * @param point the point to set
+     * @param point the position to set
      */
-    public void setPoint(Point point) {
-        this.point = point;
+    public void setPosition(Point point) {
+        this.xpoints[0] = point.x;
+        this.ypoints[0] = point.y;
+        render();
     }
 
+    /**
+     *
+     * @return the dimension
+     */
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    /**
+     *
+     * @param dimension the dimension to set
+     */
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+        render();
+    }
+
+    /**
+     *
+     * @param index
+     * @return the point
+     */
+    protected final Point getPoint(int index) {
+        return new Point(xpoints[index], ypoints[index]);
+    }
+
+    /**
+     *
+     * @param index
+     * @param point
+     */
+    protected final void setPoint(int index, Point point) {
+        xpoints[index] = point.x;
+        ypoints[index] = point.y;
+    }
+
+    /**
+     *
+     * @param index
+     * @param x
+     * @param y
+     */
+    protected final void setPoint(int index, int x, int y) {
+        xpoints[index] = x;
+        ypoints[index] = y;
+    }
+
+    /**
+     *
+     */
     @Override
     public void reset() {
         npoints = getNpoints();

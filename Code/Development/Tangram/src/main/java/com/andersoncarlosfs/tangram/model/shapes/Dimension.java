@@ -20,6 +20,10 @@ public class Dimension extends java.awt.Dimension {
         this(0, 0, 0, 0, 0, 0);
     }
 
+    public Dimension(int width, int height) {
+        super(width, height);
+    }
+
     public Dimension(Dimension d) {
         this(d.width, d.height, d.maxWidth, d.minWidth, d.maxHeight, d.minHeight);
     }
@@ -33,7 +37,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @return the maxWidth
      */
     public int getMaxWidth() {
@@ -41,7 +45,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @param maxWidth the maxWidth to set
      */
     public void setMaxWidth(int maxWidth) {
@@ -49,7 +53,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @return the minWidth
      */
     public int getMinWidth() {
@@ -57,7 +61,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @param minWidth the minWidth to set
      */
     public void setMinWidth(int minWidth) {
@@ -65,7 +69,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @return the maxHeight
      */
     public int getMaxHeight() {
@@ -73,7 +77,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @param maxHeight the maxHeight to set
      */
     public void setMaxHeight(int maxHeight) {
@@ -81,7 +85,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @return the minHeight
      */
     public int getMinHeight() {
@@ -89,7 +93,7 @@ public class Dimension extends java.awt.Dimension {
     }
 
     /**
-     * 
+     *
      * @param minHeight the minHeight to set
      */
     public void setMinHeight(int minHeight) {
