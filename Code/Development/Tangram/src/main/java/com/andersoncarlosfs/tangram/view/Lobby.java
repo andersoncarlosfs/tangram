@@ -5,16 +5,28 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
+import com.andersoncarlosfs.tangram.model.shapes.Dimension;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.swing.GroupLayout;
+import javax.swing.AbstractButton;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -28,9 +40,17 @@ import org.jboss.weld.environment.se.events.ContainerInitialized;
 @ApplicationScoped
 public class Lobby extends JFrame {
 
-    private final JMenu menu;
+    private final static Dimension SizeButton = new Dimension(100, 100);
+
+    private final static Dimension BoxFiller = new Dimension(10, 120);
+
     private final JMenuBar menuBar;
+    private final JMenu menuFile;
+    private final JMenu menuHelp;
+    private final JMenuItem menuItemAbout;
     private final JMenuItem menuItemQuit;
+    private final JButton buttonGoToLevel;
+    private final JLabel labelLogo;
 
     private final ActionListener quitActionListener = new ActionListener() {
         @Override
@@ -50,32 +70,55 @@ public class Lobby extends JFrame {
     }
 
     public Lobby() {
+        labelLogo = new JLabel();
+        buttonGoToLevel = new JButton();
         menuBar = new JMenuBar();
-        menu = new JMenu();
+        menuFile = new JMenu();
         menuItemQuit = new JMenuItem();
+        menuHelp = new JMenu();
+        menuItemAbout = new JMenuItem();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Lobby");
+        setLayout(new BorderLayout());
+        setMinimumSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
 
-        menu.setText("File");
+        labelLogo.setText("Logo");
+
+        buttonGoToLevel.setText("Go to level");
+        buttonGoToLevel.setMinimumSize(SizeButton);
+        buttonGoToLevel.setPreferredSize(SizeButton);
+        buttonGoToLevel.setMaximumSize(SizeButton);
+        buttonGoToLevel.setHorizontalTextPosition(AbstractButton.CENTER);
+        buttonGoToLevel.setVerticalTextPosition(AbstractButton.BOTTOM);
+
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
+        headerPanel.add(Box.createHorizontalGlue());
+        headerPanel.add(labelLogo);
+        headerPanel.add(new Box.Filler(BoxFiller, BoxFiller, BoxFiller));
+        headerPanel.add(buttonGoToLevel);
+        headerPanel.add(Box.createHorizontalGlue());
+
+        add(headerPanel, BorderLayout.NORTH);
+
+        menuFile.setText("File");
 
         menuItemQuit.setText("Quit");
         menuItemQuit.addActionListener(quitActionListener);
-        menu.add(menuItemQuit);
+        menuFile.add(menuItemQuit);
 
-        menuBar.add(menu);
+        menuBar.add(menuFile);
+
+        menuHelp.setText("Help");
+
+        menuItemAbout.setText("About");
+        menuHelp.add(menuItemAbout);
+
+        menuBar.add(menuHelp);
 
         setJMenuBar(menuBar);
-
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 269, Short.MAX_VALUE)
-        );
 
         pack();
     }
