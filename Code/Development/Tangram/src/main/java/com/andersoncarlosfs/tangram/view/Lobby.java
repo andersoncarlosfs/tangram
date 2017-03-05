@@ -7,7 +7,6 @@ package com.andersoncarlosfs.tangram.view;
 
 import com.andersoncarlosfs.tangram.model.shapes.Dimension;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -17,6 +16,7 @@ import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -36,18 +36,29 @@ import org.jboss.weld.environment.se.events.ContainerInitialized;
 @ApplicationScoped
 public class Lobby extends JFrame {
 
-    private final JMenuBar menuBar;
-    private final JMenu menuFile;
-    private final JMenu menuHelp;
-    private final JMenuItem menuItemAbout;
-    private final JMenuItem menuItemQuit;
-    private final JButton buttonGoToLevel;
-    private final JPanel panelLogo;
+    //
+    private JMenuBar menuBar;
+    private JMenu menuFile;
+    private JMenu menuHelp;
+    private JMenuItem menuItemAbout;
+    private JMenuItem menuItemQuit;
+    private JButton buttonGoToLevel;
+    private JPanel panelLogo;
 
-    private final ActionListener quitActionListener = new ActionListener() {
+    private ActionListener quitActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
+        }
+    };
+
+    private ActionListener playActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton button = (JButton) e.getSource();
+            JDialog dialogPlayLevel = new PlayLevel(Lobby.this, button.getText());
+            dialogPlayLevel.setLocationRelativeTo(button);
+            dialogPlayLevel.setVisible(true);
         }
     };
 
@@ -62,6 +73,7 @@ public class Lobby extends JFrame {
     }
 
     public Lobby() {
+
         panelLogo = new JPanel();
         buttonGoToLevel = new JButton();
         menuBar = new JMenuBar();
@@ -70,9 +82,9 @@ public class Lobby extends JFrame {
         menuHelp = new JMenu();
         menuItemAbout = new JMenuItem();
 
-        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        setTitle("Lobby");
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        super.getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+        super.setTitle("Lobby");
+        super.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         //Header
         TitledBorder titledBorderLogo;
@@ -89,6 +101,7 @@ public class Lobby extends JFrame {
         buttonGoToLevel.setMaximumSize(new Dimension(250, 250));
         buttonGoToLevel.setHorizontalTextPosition(AbstractButton.CENTER);
         buttonGoToLevel.setVerticalTextPosition(AbstractButton.BOTTOM);
+        buttonGoToLevel.addActionListener(playActionListener);
 
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
@@ -100,8 +113,8 @@ public class Lobby extends JFrame {
         headerPanel.add(Box.createHorizontalStrut(10));
         headerPanel.add(Box.createHorizontalGlue());
 
-        getContentPane().add(Box.createVerticalStrut(10));
-        getContentPane().add(headerPanel);
+        super.getContentPane().add(Box.createVerticalStrut(10));
+        super.getContentPane().add(headerPanel);
 
         //Body
         JPanel bodyPanel = new JPanel();
@@ -112,9 +125,10 @@ public class Lobby extends JFrame {
             levelPanel.add(Box.createHorizontalGlue());
             levelPanel.add(Box.createHorizontalStrut(10));
             for (int j = 0; j < 3; j++) {
-                JButton b = new JButton(Integer.toString(i));
+                JButton b = new JButton("Level " + (i + j));
                 b.setPreferredSize(new Dimension(150, 150));
                 b.setMaximumSize(new Dimension(200, 200));
+                b.addActionListener(playActionListener);
                 levelPanel.add(b);
                 levelPanel.add(Box.createHorizontalStrut(10));
             }
@@ -123,9 +137,10 @@ public class Lobby extends JFrame {
             bodyPanel.add(Box.createVerticalStrut(10));
         }
 
-        getContentPane().add(Box.createVerticalStrut(10));
-        getContentPane().add(bodyPanel);
-        getContentPane().add(Box.createVerticalGlue());
+        super.getContentPane().add(Box.createVerticalStrut(10));
+        super.getContentPane().add(bodyPanel);
+
+        super.getContentPane().add(Box.createVerticalGlue());
 
         //Menu 
         menuFile.setText("File");
@@ -143,9 +158,10 @@ public class Lobby extends JFrame {
 
         menuBar.add(menuHelp);
 
-        setJMenuBar(menuBar);
+        super.setJMenuBar(menuBar);
 
-        pack();
+        super.pack();
+
     }
 
     /**
@@ -154,25 +170,9 @@ public class Lobby extends JFrame {
      * @param parameters
      * @see JFrame#setVisible(boolean)
      */
-    public void setVisible(@Observes ContainerInitialized event, @Parameters List<String> parameters) {
+    public void main(@Observes ContainerInitialized event, @Parameters List<String> parameters) {
+        super.setLocationRelativeTo(null);
         super.setVisible(true);
-    }
-
-    public static class Box extends javax.swing.Box {
-
-        public Box(int axis) {
-            super(axis);
-        }
-
-        public static Component createHorizontalStrut(int width) {
-            return new Filler(new Dimension(width, 0), new Dimension(width, 0),
-                    new Dimension(width, 0));
-        }
-
-        public static Component createVerticalStrut(int height) {
-            return new Filler(new Dimension(0, height), new Dimension(0, height),
-                    new Dimension(0, height));
-        }
     }
 
 }
