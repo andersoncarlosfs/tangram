@@ -7,11 +7,13 @@ package com.andersoncarlosfs.tangram.view;
 
 import com.andersoncarlosfs.tangram.model.shapes.Dimension;
 import java.awt.Component;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
+@RequestScoped
 public class Box extends javax.swing.Box {
 
     public Box(int axis) {
