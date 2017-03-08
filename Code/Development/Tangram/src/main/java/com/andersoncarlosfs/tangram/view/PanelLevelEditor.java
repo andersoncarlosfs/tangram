@@ -7,8 +7,10 @@ package com.andersoncarlosfs.tangram.view;
 
 import com.andersoncarlosfs.tangram.controller.PolygonEditor;
 import com.andersoncarlosfs.tangram.model.shapes.Dimension;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.enterprise.context.ApplicationScoped;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -21,42 +23,44 @@ import javax.swing.JPanel;
 public class PanelLevelEditor extends JPanel {
 
     //
+    private JPanel boardPanel;
+    //
     private PolygonEditor polygonEditor;
 
     public PanelLevelEditor() {
-        
-        super.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+
+        polygonEditor = new PolygonEditor();
+        boardPanel = new JPanel();
+
+        super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+        //Body
+        boardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         JPanel bodyPanel = new JPanel();
-        bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.PAGE_AXIS));
-        for (int i = 0; i < 3; i++) {
-            JPanel levelPanel = new JPanel();
-            levelPanel.setLayout(new BoxLayout(levelPanel, BoxLayout.LINE_AXIS));
-            levelPanel.add(Box.createHorizontalGlue());
-            levelPanel.add(Box.createHorizontalStrut(10));
-            for (int j = 0; j < 3; j++) {
-                JButton b = new JButton("Level " + i + j);
-                b.setPreferredSize(new Dimension(150, 150));
-                b.setMaximumSize(new Dimension(200, 200));
-                b.addActionListener(playLevelActionListener);
-                levelPanel.add(b);
-                levelPanel.add(Box.createHorizontalStrut(10));
-            }
-            levelPanel.add(Box.createHorizontalGlue());
-            bodyPanel.add(levelPanel);
-            bodyPanel.add(Box.createVerticalStrut(10));
-        }
+        bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.LINE_AXIS));
+        bodyPanel.add(Box.createHorizontalStrut(10));
+        bodyPanel.add(boardPanel);
+        bodyPanel.add(Box.createHorizontalStrut(10));
 
         super.add(Box.createVerticalStrut(10));
         super.add(bodyPanel);
-        super.add(Box.createHorizontalStrut(10));
-        super.add(Box.createVerticalGlue());
+        super.add(Box.createVerticalStrut(10));
 
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void setVisible(boolean aFlag) {
+        if (aFlag) {
+            polygonEditor.setDimension(getSize());
+            System.out.println("a");
+        }
+        super.setVisible(aFlag);        
+    }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+System.out.println("b");
     }
 
 }

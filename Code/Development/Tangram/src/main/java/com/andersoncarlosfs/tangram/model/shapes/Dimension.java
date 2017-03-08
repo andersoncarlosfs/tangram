@@ -17,15 +17,19 @@ public class Dimension extends java.awt.Dimension {
     private int minHeight;
 
     public Dimension() {
-        this(0, 0, 0, 0, 0, 0);
+        this(0, 0, Short.MAX_VALUE, 0, Short.MAX_VALUE, 0);
     }
 
     public Dimension(int width, int height) {
-        super(width, height);
+        this(width, height, Short.MAX_VALUE, 0, Short.MAX_VALUE, 0);
     }
 
     public Dimension(Dimension d) {
         this(d.width, d.height, d.maxWidth, d.minWidth, d.maxHeight, d.minHeight);
+    }
+
+    public Dimension(java.awt.Dimension d) {
+        this(d.width, d.height, Short.MAX_VALUE, 0, Short.MAX_VALUE, 0);
     }
 
     public Dimension(int width, int height, int maxWidth, int minWidth, int maxHeight, int minHeight) {

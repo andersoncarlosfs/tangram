@@ -17,10 +17,34 @@ public class PolygonEditor {
 
     private Dimension dimension;
 
+    public PolygonEditor() {
+    }
+
     public PolygonEditor(Dimension dimension) {
         this.dimension = dimension;
     }
 
+    /**
+     * @return the dimension
+     */
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    /**
+     * @param dimension the dimension to set
+     */
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
+    /**
+     * @param dimension the dimension to set
+     */
+    public void setDimension(java.awt.Dimension dimension) {
+        this.dimension = new Dimension(dimension);
+    }
+    
     public Polygon resizePolygon(Polygon polygon) {
         return polygon;
     }
