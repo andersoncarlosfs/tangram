@@ -100,7 +100,6 @@ public class PanelLobby extends JPanel {
 
         super.add(Box.createVerticalStrut(10));
         super.add(bodyPanel);
-
         super.add(Box.createVerticalGlue());
 
     }

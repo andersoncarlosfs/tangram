@@ -15,22 +15,22 @@ import javax.enterprise.context.RequestScoped;
  * @author Anderson Carlos Ferreira da Silva
  */
 @RequestScoped
-public class DialogPlayLevel extends Dialog {
+public class DialogLeaveLevel extends Dialog {
 
     //
-    private final ActionListener doAction = new ActionListener() {
+    private final ActionListener yesActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Play");
+            System.out.println("Leave");
         }
     };
 
-    public DialogPlayLevel(Frame owner, String level) {
+    public DialogLeaveLevel(Frame owner, String level) {
 
-        super(owner, "Play level", "Do you want play level " + level + "?");
-
-        //Footer        
-        buttonDoAction.addActionListener(doAction);
+        super(owner, "Leave level", "Do you want leave level " + level + "?");
+      
+        //Footer
+        buttonDoAction.addActionListener(yesActionListener);
 
         buttonCancelAction.addActionListener(cancelAction);
 
