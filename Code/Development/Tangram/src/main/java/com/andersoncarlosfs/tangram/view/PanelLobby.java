@@ -24,7 +24,7 @@ import javax.swing.border.TitledBorder;
  * @author Anderson Carlos Ferreira da Silva
  */
 @ApplicationScoped
-public class PanelLobby extends JPanel {
+public class PanelLobby extends Panel {
 
     //
     private JButton buttonGoToLevel;
@@ -36,16 +36,16 @@ public class PanelLobby extends JPanel {
             JButton button = (JButton) e.getSource();
             JDialog dialogPlayLevel = new DialogPlayLevel((Frame) getTopLevelAncestor(), button.getText());
             dialogPlayLevel.setLocationRelativeTo(button);
-            dialogPlayLevel.setVisible(true);            
+            dialogPlayLevel.setVisible(true);
         }
     };
 
     public PanelLobby() {
 
+        super();
+
         panelImageLogo = new JPanel();
         buttonGoToLevel = new JButton();
-
-        super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         //Header
         TitledBorder titledBorderLogo;
@@ -64,7 +64,6 @@ public class PanelLobby extends JPanel {
         buttonGoToLevel.setVerticalTextPosition(AbstractButton.BOTTOM);
         buttonGoToLevel.addActionListener(playLevelActionListener);
 
-        JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
         headerPanel.add(Box.createHorizontalGlue());
         headerPanel.add(Box.createHorizontalStrut(10));
@@ -74,11 +73,7 @@ public class PanelLobby extends JPanel {
         headerPanel.add(Box.createHorizontalStrut(10));
         headerPanel.add(Box.createHorizontalGlue());
 
-        super.add(Box.createVerticalStrut(10));
-        super.add(headerPanel);
-
         //Body
-        JPanel bodyPanel = new JPanel();
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.PAGE_AXIS));
         for (int i = 0; i < 3; i++) {
             JPanel levelPanel = new JPanel();
@@ -95,12 +90,11 @@ public class PanelLobby extends JPanel {
             }
             levelPanel.add(Box.createHorizontalGlue());
             bodyPanel.add(levelPanel);
-            bodyPanel.add(Box.createVerticalStrut(10));
+            if (i + 1 < 3) {
+                bodyPanel.add(Box.createVerticalStrut(10));
+            }
         }
-
-        super.add(Box.createVerticalStrut(10));
-        super.add(bodyPanel);
-        super.add(Box.createVerticalGlue());
+        bodyPanel.add(Box.createVerticalGlue());
 
     }
 
