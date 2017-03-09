@@ -43,7 +43,7 @@ public class FrameMain extends JFrame {
     private JMenuItem menuItemQuit;
     //
     private JPanel panelLobby;
-    private JPanel panelLevelEditor;
+    private JPanel panelEditorLevel;
 
     private ActionListener quitActionListener = new ActionListener() {
         @Override
@@ -67,7 +67,7 @@ public class FrameMain extends JFrame {
         public void actionPerformed(ActionEvent e) {
             //
             CardLayout cardLayout = (CardLayout) (FrameMain.this.getContentPane().getLayout());
-            cardLayout.show(FrameMain.this.getContentPane(), panelLevelEditor.getClass().getSimpleName());
+            cardLayout.show(FrameMain.this.getContentPane(), panelEditorLevel.getClass().getSimpleName());
             //
             FrameMain.this.setTitle("New level");
             //
@@ -101,7 +101,7 @@ public class FrameMain extends JFrame {
     public FrameMain() {
 
         //
-        panelLevelEditor = new PanelLevelEditor();
+        panelEditorLevel = new PanelEditorLevel();
         panelLobby = new PanelLobby();
         menuBar = new JMenuBar();
         menuFile = new JMenu();
@@ -114,7 +114,7 @@ public class FrameMain extends JFrame {
         //
         super.getContentPane().setLayout(new CardLayout());
         super.getContentPane().add(panelLobby, panelLobby.getClass().getSimpleName());
-        super.getContentPane().add(panelLevelEditor, panelLevelEditor.getClass().getSimpleName());
+        super.getContentPane().add(panelEditorLevel, panelEditorLevel.getClass().getSimpleName());
 
         super.setTitle("Lobby");
         super.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

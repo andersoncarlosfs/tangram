@@ -8,7 +8,6 @@ package com.andersoncarlosfs.tangram.view;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.enterprise.context.RequestScoped;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,7 +20,6 @@ import javax.swing.WindowConstants;
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-@RequestScoped
 public class Dialog extends JDialog {
 
     //
@@ -46,14 +44,14 @@ public class Dialog extends JDialog {
         buttonCancelAction = new JButton();
 
         super.getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        
+
         super.setResizable(false);
-        
+
         super.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         //Header
         labelMessage.setText(message);
-        
+
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
         headerPanel.add(Box.createHorizontalGlue());

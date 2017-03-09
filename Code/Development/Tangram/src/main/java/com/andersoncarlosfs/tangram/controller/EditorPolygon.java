@@ -13,14 +13,14 @@ import java.awt.Polygon;
  * @author Anderson Carlos Ferreira da Silva
  */
 //https://www.donationcoder.com/forum/index.php?topic=30147.0
-public class PolygonEditor {
+public class EditorPolygon {
 
     private Dimension dimension;
 
-    public PolygonEditor() {
+    public EditorPolygon() {
     }
 
-    public PolygonEditor(Dimension dimension) {
+    public EditorPolygon(Dimension dimension) {
         this.dimension = dimension;
     }
 
@@ -44,7 +44,7 @@ public class PolygonEditor {
     public void setDimension(java.awt.Dimension dimension) {
         this.dimension = new Dimension(dimension);
     }
-    
+
     public Polygon resizePolygon(Polygon polygon) {
         return polygon;
     }

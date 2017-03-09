@@ -28,7 +28,7 @@ public class DialogLeaveLevel extends Dialog {
     public DialogLeaveLevel(Frame owner, String level) {
 
         super(owner, "Leave level", "Do you want leave level " + level + "?");
-      
+
         //Footer
         buttonDoAction.addActionListener(yesActionListener);
 

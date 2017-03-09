@@ -5,8 +5,9 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
-import com.andersoncarlosfs.tangram.controller.PolygonEditor;
+import com.andersoncarlosfs.tangram.controller.EditorLevel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
@@ -18,18 +19,18 @@ import javax.swing.JPanel;
  * @author Anderson Carlos Ferreira da Silva
  */
 @ApplicationScoped
-public class PanelLevelEditor extends Panel {
+public class PanelEditorLevel extends Panel {
 
     //
     private JPanel boardPanel;
     //
-    private PolygonEditor polygonEditor;
-    
-    public PanelLevelEditor() {
-        
+    private EditorLevel editorLevel;
+
+    public PanelEditorLevel() {
+
         super();
-        
-        polygonEditor = new PolygonEditor();
+
+        editorLevel = new EditorLevel();
         boardPanel = new JPanel();
 
         //Header
@@ -37,24 +38,29 @@ public class PanelLevelEditor extends Panel {
 
         //Body
         boardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
+
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.LINE_AXIS));
         bodyPanel.add(Box.createHorizontalStrut(10));
         bodyPanel.add(boardPanel);
         bodyPanel.add(Box.createHorizontalStrut(10));
-        
+
     }
-    
+
     @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
-            polygonEditor.setDimension(getSize());
+            Dimension size = getSize();
+            int width = Math.min(size.width, size.height);
+            int height = Math.min(size.width, size.height);
+            size = new Dimension(width, height);
+            boardPanel.setSize(size);
+            editorLevel.setDimension(size);
         }
         super.setVisible(aFlag);
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
     }
-    
+
 }
