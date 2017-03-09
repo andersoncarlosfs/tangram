@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
 /**
@@ -13,15 +14,15 @@ import java.awt.Point;
  */
 public abstract class Polygon extends java.awt.Polygon {
 
-    protected Dimension dimension;
+    protected int size;
 
     public Polygon() {
         npoints = getNpoints();
     }
 
-    public Polygon(Point point, Dimension dimension) {
+    public Polygon(Point point, int size) {
         this();
-        this.dimension = dimension;
+        this.size = size;
         this.xpoints[0] = point.x;
         this.ypoints[0] = point.y;
         render();
@@ -58,18 +59,18 @@ public abstract class Polygon extends java.awt.Polygon {
 
     /**
      *
-     * @return the dimension
+     * @return the size
      */
-    public Dimension getDimension() {
-        return dimension;
+    public int getSize() {
+        return size;
     }
 
     /**
      *
-     * @param dimension the dimension to set
+     * @param size the size to set
      */
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
+    public void setSize(int size) {
+        this.size = size;
         render();
     }
 

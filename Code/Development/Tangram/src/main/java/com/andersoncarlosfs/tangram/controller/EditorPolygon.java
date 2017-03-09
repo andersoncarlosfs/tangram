@@ -5,44 +5,38 @@
  */
 package com.andersoncarlosfs.tangram.controller;
 
-import com.andersoncarlosfs.tangram.model.shapes.Dimension;
 import java.awt.Polygon;
 
 /**
+ * @see
+ * <a href="https://www.donationcoder.com/forum/index.php?topic=30147.0">Automatically
+ * compute sizes of tangram pieces</a>
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-//https://www.donationcoder.com/forum/index.php?topic=30147.0
 public class EditorPolygon {
 
-    private Dimension dimension;
+    private int size;
 
     public EditorPolygon() {
     }
 
-    public EditorPolygon(Dimension dimension) {
-        this.dimension = dimension;
+    public EditorPolygon(int size) {
+        this.size = size;
     }
 
     /**
-     * @return the dimension
+     * @return the size
      */
-    public Dimension getDimension() {
-        return dimension;
+    public int getSize() {
+        return size;
     }
 
     /**
-     * @param dimension the dimension to set
+     * @param size the size to set
      */
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
-    }
-
-    /**
-     * @param dimension the dimension to set
-     */
-    public void setDimension(java.awt.Dimension dimension) {
-        this.dimension = new Dimension(dimension);
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public Polygon resizePolygon(Polygon polygon) {

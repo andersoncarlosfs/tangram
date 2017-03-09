@@ -9,6 +9,7 @@ import com.andersoncarlosfs.tangram.controller.EditorLevel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Polygon;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -22,7 +23,7 @@ import javax.swing.JPanel;
 public class PanelEditorLevel extends Panel {
 
     //
-    private JPanel boardPanel;
+    private JPanel panelBoard;
     //
     private EditorLevel editorLevel;
 
@@ -31,17 +32,15 @@ public class PanelEditorLevel extends Panel {
         super();
 
         editorLevel = new EditorLevel();
-        boardPanel = new JPanel();
+        panelBoard = new PanelBoard();
 
         //Header
         headerPanel.setVisible(false);
 
         //Body
-        boardPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.LINE_AXIS));
         bodyPanel.add(Box.createHorizontalStrut(10));
-        bodyPanel.add(boardPanel);
+        bodyPanel.add(panelBoard);
         bodyPanel.add(Box.createHorizontalStrut(10));
 
     }
@@ -49,18 +48,35 @@ public class PanelEditorLevel extends Panel {
     @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
-            Dimension size = getSize();
-            int width = Math.min(size.width, size.height);
-            int height = Math.min(size.width, size.height);
-            size = new Dimension(width, height);
-            boardPanel.setSize(size);
-            editorLevel.setDimension(size);
+            int size = Math.min(getWidth(), getHeight());
+            panelBoard.setSize(new Dimension(size, size));
+            editorLevel.setSize((int) (size * 0.5));
         }
         super.setVisible(aFlag);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
+    private class PanelBoard extends JPanel {
+
+        public PanelBoard() {
+
+            super();
+
+            super.setBackground(Color.WHITE);
+            super.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+
+            super.paintComponent(g);
+
+            for (Polygon polygon : editorLevel.getPolygons()) {
+                g.drawPolygon(polygon);
+            }
+
+        }
+
     }
 
 }

@@ -5,7 +5,7 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
-import com.andersoncarlosfs.tangram.model.shapes.Dimension;
+import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;

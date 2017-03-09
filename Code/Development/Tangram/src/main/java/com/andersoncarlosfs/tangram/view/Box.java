@@ -5,8 +5,8 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
-import com.andersoncarlosfs.tangram.model.shapes.Dimension;
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.enterprise.context.RequestScoped;
 
 /**

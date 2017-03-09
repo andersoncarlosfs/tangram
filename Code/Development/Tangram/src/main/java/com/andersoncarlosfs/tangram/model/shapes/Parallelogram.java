@@ -11,14 +11,14 @@ import java.awt.Point;
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-public class Trapeze extends Polygon {
+public class Parallelogram extends Polygon {
 
-    public Trapeze() {
+    public Parallelogram() {
         super();
     }
 
-    public Trapeze(Point point, Dimension dimension) {
-        super(point, dimension);
+    public Parallelogram(Point point, int size) {
+        super(point, size);
     }
 
     /**
@@ -36,9 +36,9 @@ public class Trapeze extends Polygon {
     @Override
     protected void render() {
         //setPoint(0, xpoints[0], ypoints[0]);
-        setPoint(1, xpoints[0] + dimension.width, ypoints[0] + dimension.height);
-        setPoint(2, xpoints[0] + dimension.width, ypoints[0] + dimension.height * 2);
-        setPoint(3, xpoints[0], ypoints[0] + dimension.height);
+        setPoint(1, xpoints[0] + size, ypoints[0] + size);
+        setPoint(2, xpoints[0] + size, ypoints[0] + size * 2);
+        setPoint(3, xpoints[0], ypoints[0] + size);
     }
 
 }

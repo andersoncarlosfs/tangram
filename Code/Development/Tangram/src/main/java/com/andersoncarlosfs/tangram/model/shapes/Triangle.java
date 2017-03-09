@@ -17,8 +17,8 @@ public class Triangle extends Polygon {
         super();
     }
 
-    public Triangle(Point point, Dimension dimension) {
-        super(point, dimension);
+    public Triangle(Point point, int size) {
+        super(point, size);
     }
 
     /**
@@ -36,8 +36,8 @@ public class Triangle extends Polygon {
     @Override
     protected void render() {
         //setPoint(0, xpoints[0], ypoints[0]);
-        setPoint(1, xpoints[0] + dimension.width, ypoints[0]);
-        setPoint(2, xpoints[0] + dimension.width, ypoints[0] - dimension.height);
+        setPoint(1, xpoints[0], ypoints[0] + size);
+        setPoint(2, xpoints[0] + (int) (size / 2), ypoints[0] + (int) (size / 2));
     }
 
 }
