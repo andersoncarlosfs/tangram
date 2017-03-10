@@ -35,10 +35,15 @@ public class Parallelogram extends Polygon {
      */
     @Override
     protected void render() {
+
+        int width = (int) super.size / 2;
+        int height = (int) Math.sqrt(2 * Math.pow(width, 2)) / 2;
+
         //setPoint(0, xpoints[0], ypoints[0]);
-        setPoint(1, xpoints[0] + size, ypoints[0] + size);
-        setPoint(2, xpoints[0] + size, ypoints[0] + size * 2);
-        setPoint(3, xpoints[0], ypoints[0] + size);
+        setPoint(1, xpoints[0] + width, ypoints[0]);
+        setPoint(3, xpoints[0] + height, ypoints[0] - height);
+        setPoint(2, xpoints[0] + width + height, ypoints[0] - height);
+
     }
 
 }

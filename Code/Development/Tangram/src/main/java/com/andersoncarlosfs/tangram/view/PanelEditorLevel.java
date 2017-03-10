@@ -6,10 +6,12 @@
 package com.andersoncarlosfs.tangram.view;
 
 import com.andersoncarlosfs.tangram.controller.EditorLevel;
+import com.andersoncarlosfs.tangram.model.shapes.Polygon;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Polygon;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -71,8 +73,14 @@ public class PanelEditorLevel extends Panel {
 
             super.paintComponent(g);
 
+            Graphics2D g2d;
+
             for (Polygon polygon : editorLevel.getPolygons()) {
-                g.drawPolygon(polygon);
+                g2d = (Graphics2D) g.create();
+                polygon.setSize(editorLevel.getSize());
+                polygon.setLocation(new Point(editorLevel.getSize(), editorLevel.getSize()));
+                g2d.drawPolygon(polygon);
+                g2d.dispose();
             }
 
         }

@@ -5,9 +5,12 @@
  */
 package com.andersoncarlosfs.tangram.controller;
 
+import com.andersoncarlosfs.tangram.model.shapes.Parallelogram;
 import com.andersoncarlosfs.tangram.model.shapes.Triangle;
+import com.andersoncarlosfs.tangram.model.shapes.Polygon;
+import com.andersoncarlosfs.tangram.model.shapes.Square;
 import java.awt.Point;
-import java.awt.Polygon;
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -21,57 +24,32 @@ public class EditorLevel extends EditorPolygon {
 
         super();
 
-        polygons = new Polygon[2];
+        polygons = new Polygon[7];
 
         //Large triangles
-        polygons[0] = new Triangle();
-        polygons[1] = new Triangle();
-        /*        
+        polygons[0] = new Triangle(Triangle.Type.LARGE);
+        polygons[1] = new Triangle(Triangle.Type.LARGE);
+
         //Medium triangle
-        polygons[] = new Triangle());
+        polygons[2] = new Triangle(Triangle.Type.MEDIUM);
 
         //Small triangles
-        polygons[] = new Triangle());
-        polygons[] = new Triangle());
+        polygons[3] = new Triangle(Triangle.Type.SMALL);
+        polygons[4] = new Triangle(Triangle.Type.SMALL);
 
         //Parallelogram
-        polygons[] = new Parallelogram());
+        polygons[5] = new Parallelogram();
 
         //Square
-        polygons[] = new Square());
-         */
-    }
+        polygons[6] = new Square();
 
-    /**
-     * @return the center point
-     */
-    public Point getCenterPoint() {
-        return new Point(getSize(), getSize());
     }
 
     /**
      * @return the polygons
      */
     public Polygon[] getPolygons() {
-
-        Triangle triangle;
-        Point point;
-        
-        point = getCenterPoint();
-
-        //Large triangles
-        triangle = (Triangle) polygons[0];
-        triangle.setSize(getSize());
-        triangle.setPosition(new Point(point.x / 2, point.y / 2));
-        
-        point = triangle.getPosition();
-        
-        triangle = (Triangle) polygons[1];
-        triangle.setSize(getSize());
-        triangle.setPosition(new Point(point.x / 2, point.y / 2));
-
         return polygons;
-
     }
 
 }

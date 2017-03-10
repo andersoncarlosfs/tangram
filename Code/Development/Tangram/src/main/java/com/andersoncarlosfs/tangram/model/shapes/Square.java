@@ -35,10 +35,14 @@ public class Square extends Polygon {
      */
     @Override
     protected void render() {
+
+        int size = (int) Math.sqrt(2 * Math.pow(super.size / 2, 2)) / 2;
+
         //setPoint(0, xpoints[0], ypoints[0]);
         setPoint(1, xpoints[0] + size, ypoints[0]);
         setPoint(2, xpoints[0] + size, ypoints[0] + size);
         setPoint(3, xpoints[0], ypoints[0] + size);
+        
     }
 
 }
