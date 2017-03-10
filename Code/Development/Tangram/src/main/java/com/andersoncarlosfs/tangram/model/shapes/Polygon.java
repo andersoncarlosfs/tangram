@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 
@@ -16,9 +17,11 @@ public abstract class Polygon extends java.awt.Polygon {
 
     protected int size;
     private double rotation;
+    private Color color;
 
     public Polygon() {
         npoints = getNpoints();
+        color = Color.LIGHT_GRAY;
     }
 
     public Polygon(Point point, int size) {
@@ -119,6 +122,22 @@ public abstract class Polygon extends java.awt.Polygon {
         this.xpoints[0] = point.x;
         this.ypoints[0] = point.y;
         render();
+    }
+
+    /**
+     *
+     * @return the color
+     */
+    public Color getColor() {
+        return color;
+    }
+
+    /**
+     *
+     * @param color the color to set
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     /**

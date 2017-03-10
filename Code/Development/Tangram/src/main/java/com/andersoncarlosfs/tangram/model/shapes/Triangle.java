@@ -13,16 +13,12 @@ import java.awt.Point;
  */
 public class Triangle extends Polygon {
 
-    private final Type type;
-
-    public Triangle(Type type) {
+    public Triangle() {
         super();
-        this.type = type;
     }
 
-    public Triangle(Point point, int size, Type type) {
+    public Triangle(Point point, int size) {
         super(point, size);
-        this.type = type;
     }
 
     /**
@@ -39,34 +35,45 @@ public class Triangle extends Polygon {
      */
     @Override
     protected void render() {
-
-        int size = 0;
-
-        switch (type) {
-            case LARGE:
-                size = super.size;
-                break;
-            case MEDIUM:
-                size = (int) Math.sqrt(2 * Math.pow(super.size / 2, 2));
-                break;
-            case SMALL:
-                size = (int) super.size / 2;
-                break;
-            default:
-                size = super.size;
-                break;
-        }
-
         //setPoint(0, xpoints[0], ypoints[0]);
         setPoint(1, xpoints[0] + size, ypoints[0]);
         setPoint(2, xpoints[0] + (int) (size / 2), ypoints[0] - (int) (size / 2));
 
     }
 
-    public enum Type {
-        LARGE,
-        MEDIUM,
-        SMALL;
+    public static class Large extends Triangle {
+
+        @Override
+        protected void render() {
+            //int size = super.size;
+            super.render();
+            //super.size = size;
+        }
+
+    }
+
+    public static class Medium extends Triangle {
+
+        @Override
+        protected void render() {
+            int size = super.size;
+            super.size = (int) Math.sqrt(2 * Math.pow(super.size / 2, 2));
+            super.render();
+            super.size = size;
+        }
+
+    }
+
+    public static class Small extends Triangle {
+
+        @Override
+        protected void render() {
+            int size = super.size;
+            super.size = (int) super.size / 2;
+            super.render();
+            super.size = size;
+        }
+
     }
 
 }

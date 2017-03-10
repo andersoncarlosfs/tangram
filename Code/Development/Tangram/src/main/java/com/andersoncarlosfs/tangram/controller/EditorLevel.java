@@ -9,8 +9,6 @@ import com.andersoncarlosfs.tangram.model.shapes.Parallelogram;
 import com.andersoncarlosfs.tangram.model.shapes.Triangle;
 import com.andersoncarlosfs.tangram.model.shapes.Polygon;
 import com.andersoncarlosfs.tangram.model.shapes.Square;
-import java.awt.Point;
-import java.awt.geom.Point2D;
 
 /**
  *
@@ -27,15 +25,15 @@ public class EditorLevel extends EditorPolygon {
         polygons = new Polygon[7];
 
         //Large triangles
-        polygons[0] = new Triangle(Triangle.Type.LARGE);
-        polygons[1] = new Triangle(Triangle.Type.LARGE);
+        polygons[0] = new Triangle.Large();
+        polygons[1] = new Triangle.Large();
 
         //Medium triangle
-        polygons[2] = new Triangle(Triangle.Type.MEDIUM);
+        polygons[2] = new Triangle.Medium();
 
         //Small triangles
-        polygons[3] = new Triangle(Triangle.Type.SMALL);
-        polygons[4] = new Triangle(Triangle.Type.SMALL);
+        polygons[3] = new Triangle.Small();
+        polygons[4] = new Triangle.Small();
 
         //Parallelogram
         polygons[5] = new Parallelogram();
@@ -49,6 +47,10 @@ public class EditorLevel extends EditorPolygon {
      * @return the polygons
      */
     public Polygon[] getPolygons() {
+        int size = getSize();
+        for (Polygon polygon : polygons) {
+            polygon.setSize(size);
+        }
         return polygons;
     }
 

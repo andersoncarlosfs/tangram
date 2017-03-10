@@ -5,8 +5,6 @@
  */
 package com.andersoncarlosfs.tangram.controller;
 
-import java.awt.Polygon;
-
 /**
  * @see
  * <a href="https://www.donationcoder.com/forum/index.php?topic=30147.0">Automatically
@@ -37,10 +35,6 @@ public class EditorPolygon {
      */
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public Polygon resizePolygon(Polygon polygon) {
-        return polygon;
     }
 
 }
