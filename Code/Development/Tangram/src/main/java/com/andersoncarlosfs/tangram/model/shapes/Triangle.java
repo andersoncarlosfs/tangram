@@ -37,7 +37,7 @@ public class Triangle extends Polygon {
     protected void render() {
         //setPoint(0, xpoints[0], ypoints[0]);
         setPoint(1, xpoints[0] + size, ypoints[0]);
-        setPoint(2, xpoints[0] + (int) (size / 2), ypoints[0] - (int) (size / 2));
+        setPoint(2, xpoints[0] + (int) (size / 2), ypoints[0] + (int) (size / 2));
 
     }
 

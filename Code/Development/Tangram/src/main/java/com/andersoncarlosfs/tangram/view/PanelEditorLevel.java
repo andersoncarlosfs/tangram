@@ -77,9 +77,10 @@ public class PanelEditorLevel extends Panel {
 
             for (Polygon polygon : editorLevel.getPolygons()) {
                 g2d = (Graphics2D) g.create();
-                polygon.setSize(editorLevel.getSize());
-                polygon.setLocation(new Point(editorLevel.getSize(), editorLevel.getSize()));
-                g2d.drawPolygon(polygon);
+                g2d.setColor(polygon.getColor());
+                g2d.fill(polygon);
+                g2d.setColor(Color.BLACK);
+                g2d.draw(polygon);
                 g2d.dispose();
             }
 

@@ -42,7 +42,7 @@ public class Square extends Polygon {
         setPoint(1, xpoints[0] + size, ypoints[0]);
         setPoint(2, xpoints[0] + size, ypoints[0] + size);
         setPoint(3, xpoints[0], ypoints[0] + size);
-        
+
     }
 
 }

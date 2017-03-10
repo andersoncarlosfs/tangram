@@ -41,8 +41,8 @@ public class Parallelogram extends Polygon {
 
         //setPoint(0, xpoints[0], ypoints[0]);
         setPoint(1, xpoints[0] + width, ypoints[0]);
-        setPoint(3, xpoints[0] + height, ypoints[0] - height);
-        setPoint(2, xpoints[0] + width + height, ypoints[0] - height);
+        setPoint(3, xpoints[0] + height, ypoints[0] + height);
+        setPoint(2, xpoints[0] + width + height, ypoints[0] + height);
 
     }
 

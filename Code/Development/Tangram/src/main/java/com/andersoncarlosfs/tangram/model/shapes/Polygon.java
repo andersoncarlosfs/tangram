@@ -5,8 +5,10 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 /**
@@ -18,10 +20,12 @@ public abstract class Polygon extends java.awt.Polygon {
     protected int size;
     private double rotation;
     private Color color;
+    private Stroke stroke;
 
     public Polygon() {
         npoints = getNpoints();
         color = Color.LIGHT_GRAY;
+        stroke = new BasicStroke();
     }
 
     public Polygon(Point point, int size) {
@@ -138,6 +142,22 @@ public abstract class Polygon extends java.awt.Polygon {
      */
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    /**
+     *
+     * @return the stroke
+     */
+    public Stroke getStroke() {
+        return stroke;
+    }
+
+    /**
+     *
+     * @param stroke the stroke to set
+     */
+    public void setStroke(Stroke stroke) {
+        this.stroke = stroke;
     }
 
     /**
