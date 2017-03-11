@@ -12,6 +12,8 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 /**
+ * @see
+ * <a href="http://www.shodor.org/~jmorrell/interactivate/org/shodor/util11/PolygonUtils.java">PolygonUtils</a>
  *
  * @author Anderson Carlos Ferreira da Silva
  */
@@ -23,7 +25,7 @@ public abstract class Polygon extends java.awt.Polygon {
     private Stroke stroke;
 
     public Polygon() {
-        npoints = getNpoints();
+        super.npoints = getNpoints();
         color = Color.LIGHT_GRAY;
         stroke = new BasicStroke();
     }
@@ -31,8 +33,8 @@ public abstract class Polygon extends java.awt.Polygon {
     public Polygon(Point point, int size) {
         this();
         this.size = size;
-        this.xpoints[0] = point.x;
-        this.ypoints[0] = point.y;
+        super.xpoints[0] = point.x;
+        super.ypoints[0] = point.y;
         render();
     }
 
@@ -77,6 +79,9 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param rotation the rotation to set
      */
     public void setRotation(double rotation) {
+        if (rotation == 360) {
+            rotation = 0;
+        }
         this.rotation = rotation;
     }
 
@@ -86,7 +91,7 @@ public abstract class Polygon extends java.awt.Polygon {
      * @return the point
      */
     public final Point getPoint(int index) {
-        return new Point(xpoints[index], ypoints[index]);
+        return new Point(super.xpoints[index], super.ypoints[index]);
     }
 
     /**
@@ -95,8 +100,8 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param point
      */
     protected final void setPoint(int index, Point point) {
-        xpoints[index] = point.x;
-        ypoints[index] = point.y;
+        super.xpoints[index] = point.x;
+        super.ypoints[index] = point.y;
     }
 
     /**
@@ -106,8 +111,8 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param y
      */
     protected final void setPoint(int index, int x, int y) {
-        xpoints[index] = x;
-        ypoints[index] = y;
+        super.xpoints[index] = x;
+        super.ypoints[index] = y;
     }
 
     /**
@@ -115,7 +120,7 @@ public abstract class Polygon extends java.awt.Polygon {
      * @return the location
      */
     public Point getLocation() {
-        return new Point(xpoints[0], ypoints[0]);
+        return new Point(super.xpoints[0], super.ypoints[0]);
     }
 
     /**
@@ -123,8 +128,8 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param point the location to set
      */
     public void setLocation(Point point) {
-        this.xpoints[0] = point.x;
-        this.ypoints[0] = point.y;
+        super.xpoints[0] = point.x;
+        super.ypoints[0] = point.y;
         render();
     }
 
@@ -162,18 +167,73 @@ public abstract class Polygon extends java.awt.Polygon {
 
     /**
      *
+     * @return the signed area
+     */
+    private double getSignedArea() {
+        int i;
+        int j;
+
+        double area = 0;
+
+        for (i = 0; i < npoints; i++) {
+            j = (i + 1) % npoints;
+            area += super.xpoints[i] * super.ypoints[j];
+            area -= super.xpoints[j] * super.ypoints[i];
+        }
+
+        area /= 2.0;
+
+        return area;
+    }
+
+    /**
+     *
+     * @return the area
+     */
+    public double getArea() {
+        return (Math.abs(getSignedArea()));
+    }
+
+    /**
+     *
      * @return the centroid
      */
     public final Point2D getCentroid() {
+        int i;
+        int j;
+        double factor;
+
         double x = 0;
         double y = 0;
-        for (int index = 0; index < npoints; index++) {
-            x += xpoints[index];
-            y += ypoints[index];
+
+        for (i = 0; i < npoints; i++) {
+            j = (i + 1) % npoints;
+            factor = (super.xpoints[i] * super.ypoints[j] - super.xpoints[j] * super.ypoints[i]);
+            x += (super.xpoints[i] + super.xpoints[j]) * factor;
+            y += (super.ypoints[i] + super.ypoints[j]) * factor;
         }
-        x = x / npoints;
-        y = y / npoints;
+
+        factor = 1.0 / (6.0 * getArea());
+
+        x *= factor;
+        y *= factor;
+
         return new Point.Double(x, y);
+    }
+
+    /**
+     * @see
+     * <a href="http://stackoverflow.com/questions/11548309/guarantee-outward-direction-of-polygon-normals">Guarantee
+     * outward direction of polygon normals</a>
+     *
+     * @see
+     * <a href="http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order/1165943#1165943">How
+     * to determine if a list of polygon points are in clockwise order?</a>
+     *
+     * @return
+     */
+    public final boolean isClockwise() {
+        return getSignedArea() < 0;
     }
 
     /**
