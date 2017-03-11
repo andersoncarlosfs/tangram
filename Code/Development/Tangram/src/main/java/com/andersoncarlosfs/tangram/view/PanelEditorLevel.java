@@ -11,11 +11,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
 
 /**
  *
@@ -28,6 +28,9 @@ public class PanelEditorLevel extends Panel {
     private JPanel panelBoard;
     //
     private EditorLevel editorLevel;
+    
+    //
+    private MouseInputAdapter mouseInputAdapterMoveShape;
 
     public PanelEditorLevel() {
 

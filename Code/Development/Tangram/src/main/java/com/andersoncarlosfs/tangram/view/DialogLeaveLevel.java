@@ -18,7 +18,7 @@ import javax.enterprise.context.RequestScoped;
 public class DialogLeaveLevel extends Dialog {
 
     //
-    private final ActionListener yesActionListener = new ActionListener() {
+    private final ActionListener actionListenerQuitLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Leave");
@@ -30,9 +30,9 @@ public class DialogLeaveLevel extends Dialog {
         super(owner, "Leave level", "Do you want leave level " + level + "?");
 
         //Footer
-        buttonDoAction.addActionListener(yesActionListener);
+        buttonDo.addActionListener(actionListenerQuitLevel);
 
-        buttonCancelAction.addActionListener(cancelAction);
+        buttonCancel.addActionListener(actionListenerCancel);
 
     }
 

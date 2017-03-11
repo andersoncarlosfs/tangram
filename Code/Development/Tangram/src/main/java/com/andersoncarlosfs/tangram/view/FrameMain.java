@@ -42,24 +42,14 @@ public class FrameMain extends JFrame {
     private JPanel panelLobby;
     private JPanel panelEditorLevel;
 
-    private ActionListener quitActionListener = new ActionListener() {
+    private ActionListener actionListenerQuitApplication = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
         }
     };
 
-    private ActionListener playLevelActionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton button = (JButton) e.getSource();
-            JDialog dialogPlayLevel = new DialogPlayLevel(FrameMain.this, button.getText());
-            dialogPlayLevel.setLocationRelativeTo(button);
-            dialogPlayLevel.setVisible(true);
-        }
-    };
-
-    private ActionListener createLevelActionListener = new ActionListener() {
+    private ActionListener actionListenerCreateLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             //
@@ -72,7 +62,7 @@ public class FrameMain extends JFrame {
         }
     };
 
-    private ActionListener closelevelEditorActionListener = new ActionListener() {
+    private ActionListener actionListenerCloseLevelEditor = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             //
@@ -110,16 +100,16 @@ public class FrameMain extends JFrame {
         menuFile.setText("File");
 
         menuItemCreateLevel.setText("New level");
-        menuItemCreateLevel.addActionListener(createLevelActionListener);
+        menuItemCreateLevel.addActionListener(actionListenerCreateLevel);
         menuFile.add(menuItemCreateLevel);
 
         menuItemCloseLevelEditor.setText("Close");
-        menuItemCloseLevelEditor.addActionListener(closelevelEditorActionListener);
+        menuItemCloseLevelEditor.addActionListener(actionListenerCloseLevelEditor);
         menuItemCloseLevelEditor.setVisible(false);
         menuFile.add(menuItemCloseLevelEditor);
 
         menuItemQuit.setText("Quit");
-        menuItemQuit.addActionListener(quitActionListener);
+        menuItemQuit.addActionListener(actionListenerQuitApplication);
         menuFile.add(menuItemQuit);
 
         menuBar.add(menuFile);

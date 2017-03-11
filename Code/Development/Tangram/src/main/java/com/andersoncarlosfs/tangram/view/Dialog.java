@@ -24,11 +24,11 @@ public class Dialog extends JDialog {
 
     //
     protected JLabel labelMessage;
-    protected JButton buttonDoAction;
-    protected JButton buttonCancelAction;
+    protected JButton buttonDo;
+    protected JButton buttonCancel;
 
     //
-    protected final ActionListener cancelAction = new ActionListener() {
+    protected final ActionListener actionListenerCancel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
@@ -40,8 +40,8 @@ public class Dialog extends JDialog {
         super(owner, true);
 
         labelMessage = new JLabel();
-        buttonDoAction = new JButton();
-        buttonCancelAction = new JButton();
+        buttonDo = new JButton();
+        buttonCancel = new JButton();
 
         super.getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 
@@ -64,16 +64,16 @@ public class Dialog extends JDialog {
         super.getContentPane().add(headerPanel);
 
         //Footer
-        buttonDoAction.setText("Yes");
+        buttonDo.setText("Yes");
 
-        buttonCancelAction.setText("No");
+        buttonCancel.setText("No");
 
         JPanel optionPanel = new JPanel();
         optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.LINE_AXIS));
         optionPanel.add(Box.createHorizontalStrut(10));
-        optionPanel.add(buttonDoAction);
+        optionPanel.add(buttonDo);
         optionPanel.add(Box.createHorizontalGlue());
-        optionPanel.add(buttonCancelAction);
+        optionPanel.add(buttonCancel);
         optionPanel.add(Box.createHorizontalStrut(10));
 
         JPanel footerPanel = new JPanel();

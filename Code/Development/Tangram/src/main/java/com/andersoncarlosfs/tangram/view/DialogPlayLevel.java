@@ -18,7 +18,7 @@ import javax.enterprise.context.RequestScoped;
 public class DialogPlayLevel extends Dialog {
 
     //
-    private final ActionListener doAction = new ActionListener() {
+    private final ActionListener actionListenerPlayLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Play");
@@ -30,9 +30,9 @@ public class DialogPlayLevel extends Dialog {
         super(owner, "Play level", "Do you want play level " + level + "?");
 
         //Footer        
-        buttonDoAction.addActionListener(doAction);
+        buttonDo.addActionListener(actionListenerPlayLevel);
 
-        buttonCancelAction.addActionListener(cancelAction);
+        buttonCancel.addActionListener(actionListenerCancel);
 
     }
 

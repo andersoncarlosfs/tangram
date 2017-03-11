@@ -30,7 +30,7 @@ public class PanelLobby extends Panel {
     private JButton buttonGoToLevel;
     private JPanel panelImageLogo;
 
-    private ActionListener playLevelActionListener = new ActionListener() {
+    private ActionListener actionListenerPlayLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton button = (JButton) e.getSource();
@@ -62,7 +62,7 @@ public class PanelLobby extends Panel {
         buttonGoToLevel.setMaximumSize(new Dimension(250, 250));
         buttonGoToLevel.setHorizontalTextPosition(AbstractButton.CENTER);
         buttonGoToLevel.setVerticalTextPosition(AbstractButton.BOTTOM);
-        buttonGoToLevel.addActionListener(playLevelActionListener);
+        buttonGoToLevel.addActionListener(actionListenerPlayLevel);
 
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
         headerPanel.add(Box.createHorizontalGlue());
@@ -84,7 +84,7 @@ public class PanelLobby extends Panel {
                 JButton b = new JButton("Level " + i + j);
                 b.setPreferredSize(new Dimension(150, 150));
                 b.setMaximumSize(new Dimension(200, 200));
-                b.addActionListener(playLevelActionListener);
+                b.addActionListener(actionListenerPlayLevel);
                 levelPanel.add(b);
                 levelPanel.add(Box.createHorizontalStrut(10));
             }
