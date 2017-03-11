@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
@@ -33,16 +34,22 @@ public class PanelEditorLevel extends Panel {
     //
     private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
 
+        private Point point;
         private Polygon polygon;
 
         @Override
         public void mousePressed(MouseEvent e) {
-            super.mousePressed(e); //To change body of generated methods, choose Tools | Templates.
+                   
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            super.mouseDragged(e); //To change body of generated methods, choose Tools | Templates.
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        
         }
 
     };

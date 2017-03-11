@@ -9,6 +9,7 @@ import com.andersoncarlosfs.tangram.model.shapes.Parallelogram;
 import com.andersoncarlosfs.tangram.model.shapes.Triangle;
 import com.andersoncarlosfs.tangram.model.shapes.Polygon;
 import com.andersoncarlosfs.tangram.model.shapes.Square;
+import java.awt.Point;
 
 /**
  *
@@ -44,14 +45,34 @@ public class EditorLevel extends EditorPolygon {
     }
 
     /**
-     * @return the polygons
+     *
+     * @param size
      */
-    public Polygon[] getPolygons() {
-        int size = getSize();
+    @Override
+    public void setSize(int size) {
+        super.setSize(size);
         for (Polygon polygon : polygons) {
             polygon.setSize(size);
         }
+    }
+
+    /**
+     * @return the polygons
+     */
+    public Polygon[] getPolygons() {
         return polygons;
+    }
+
+    /**
+     * @return the polygon
+     */
+    public Polygon getPolygon(Point p) {
+        for (int i = polygons.length - 1; i >= 0; i--) {
+            if (polygons[i].contains(p)) {
+                return polygons[i];
+            }
+        }
+        return null;
     }
 
 }
