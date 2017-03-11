@@ -64,17 +64,17 @@ public class PanelLobby extends Panel {
         buttonGoToLevel.setVerticalTextPosition(AbstractButton.BOTTOM);
         buttonGoToLevel.addActionListener(actionListenerPlayLevel);
 
-        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
-        headerPanel.add(Box.createHorizontalGlue());
-        headerPanel.add(Box.createHorizontalStrut(10));
-        headerPanel.add(panelImageLogo);
-        headerPanel.add(Box.createHorizontalStrut(10));
-        headerPanel.add(buttonGoToLevel);
-        headerPanel.add(Box.createHorizontalStrut(10));
-        headerPanel.add(Box.createHorizontalGlue());
+        panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.LINE_AXIS));
+        panelHeader.add(Box.createHorizontalGlue());
+        panelHeader.add(Box.createHorizontalStrut(10));
+        panelHeader.add(panelImageLogo);
+        panelHeader.add(Box.createHorizontalStrut(10));
+        panelHeader.add(buttonGoToLevel);
+        panelHeader.add(Box.createHorizontalStrut(10));
+        panelHeader.add(Box.createHorizontalGlue());
 
         //Body
-        bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.PAGE_AXIS));
+        panelBody.setLayout(new BoxLayout(panelBody, BoxLayout.PAGE_AXIS));
         for (int i = 0; i < 3; i++) {
             JPanel levelPanel = new JPanel();
             levelPanel.setLayout(new BoxLayout(levelPanel, BoxLayout.LINE_AXIS));
@@ -89,12 +89,12 @@ public class PanelLobby extends Panel {
                 levelPanel.add(Box.createHorizontalStrut(10));
             }
             levelPanel.add(Box.createHorizontalGlue());
-            bodyPanel.add(levelPanel);
+            panelBody.add(levelPanel);
             if (i + 1 < 3) {
-                bodyPanel.add(Box.createVerticalStrut(10));
+                panelBody.add(Box.createVerticalStrut(10));
             }
         }
-        bodyPanel.add(Box.createVerticalGlue());
+        panelBody.add(Box.createVerticalGlue());
 
     }
 

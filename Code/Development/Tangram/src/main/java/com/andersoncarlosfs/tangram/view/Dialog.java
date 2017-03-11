@@ -52,39 +52,39 @@ public class Dialog extends JDialog {
         //Header
         labelMessage.setText(message);
 
-        JPanel headerPanel = new JPanel();
-        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
-        headerPanel.add(Box.createHorizontalGlue());
-        headerPanel.add(Box.createHorizontalStrut(10));
-        headerPanel.add(labelMessage);
-        headerPanel.add(Box.createHorizontalStrut(10));
-        headerPanel.add(Box.createHorizontalGlue());
+        JPanel panelHeader = new JPanel();
+        panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.LINE_AXIS));
+        panelHeader.add(Box.createHorizontalGlue());
+        panelHeader.add(Box.createHorizontalStrut(10));
+        panelHeader.add(labelMessage);
+        panelHeader.add(Box.createHorizontalStrut(10));
+        panelHeader.add(Box.createHorizontalGlue());
 
         super.getContentPane().add(Box.createVerticalStrut(10));
-        super.getContentPane().add(headerPanel);
+        super.getContentPane().add(panelHeader);
 
         //Footer
         buttonDo.setText("Yes");
 
         buttonCancel.setText("No");
 
-        JPanel optionPanel = new JPanel();
-        optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.LINE_AXIS));
-        optionPanel.add(Box.createHorizontalStrut(10));
-        optionPanel.add(buttonDo);
-        optionPanel.add(Box.createHorizontalGlue());
-        optionPanel.add(buttonCancel);
-        optionPanel.add(Box.createHorizontalStrut(10));
+        JPanel panelAction = new JPanel();
+        panelAction.setLayout(new BoxLayout(panelAction, BoxLayout.LINE_AXIS));
+        panelAction.add(Box.createHorizontalStrut(10));
+        panelAction.add(buttonDo);
+        panelAction.add(Box.createHorizontalGlue());
+        panelAction.add(buttonCancel);
+        panelAction.add(Box.createHorizontalStrut(10));
 
-        JPanel footerPanel = new JPanel();
-        footerPanel.setLayout(new BoxLayout(footerPanel, BoxLayout.PAGE_AXIS));
-        footerPanel.add(Box.createVerticalStrut(10));
-        footerPanel.add(new JSeparator(JSeparator.HORIZONTAL));
-        footerPanel.add(Box.createVerticalStrut(10));
-        footerPanel.add(optionPanel);
+        JPanel panelFooter = new JPanel();
+        panelFooter.setLayout(new BoxLayout(panelFooter, BoxLayout.PAGE_AXIS));
+        panelFooter.add(Box.createVerticalStrut(10));
+        panelFooter.add(new JSeparator(JSeparator.HORIZONTAL));
+        panelFooter.add(Box.createVerticalStrut(10));
+        panelFooter.add(panelAction);
 
         //super.getContentPane().add(Box.createVerticalStrut(10));
-        super.getContentPane().add(footerPanel);
+        super.getContentPane().add(panelFooter);
         super.getContentPane().add(Box.createVerticalStrut(10));
 
         super.getContentPane().add(Box.createVerticalGlue());

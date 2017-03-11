@@ -15,22 +15,22 @@ import javax.swing.JPanel;
 public class Panel extends JPanel {
 
     //
-    protected JPanel headerPanel;
-    protected JPanel bodyPanel;
+    protected JPanel panelHeader;
+    protected JPanel panelBody;
 
     public Panel() {
 
         super();
 
-        headerPanel = new JPanel();
-        bodyPanel = new JPanel();
+        panelHeader = new JPanel();
+        panelBody = new JPanel();
 
         super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         super.add(Box.createVerticalStrut(10));
-        super.add(headerPanel);
+        super.add(panelHeader);
         super.add(Box.createVerticalStrut(10));
-        super.add(bodyPanel);
+        super.add(panelBody);
         super.add(Box.createVerticalStrut(10));
 
     }

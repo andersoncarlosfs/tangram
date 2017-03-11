@@ -28,9 +28,6 @@ public class PanelEditorLevel extends Panel {
     private JPanel panelBoard;
     //
     private EditorLevel editorLevel;
-    
-    //
-    private MouseInputAdapter mouseInputAdapterMoveShape;
 
     public PanelEditorLevel() {
 
@@ -40,13 +37,18 @@ public class PanelEditorLevel extends Panel {
         panelBoard = new PanelBoard();
 
         //Header
-        headerPanel.setVisible(false);
+        panelHeader.setVisible(false);
 
         //Body
-        bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.LINE_AXIS));
-        bodyPanel.add(Box.createHorizontalStrut(10));
-        bodyPanel.add(panelBoard);
-        bodyPanel.add(Box.createHorizontalStrut(10));
+        MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapterMove();
+
+        panelBoard.addMouseListener(mouseInputAdapterMoveShape);
+        panelBoard.addMouseMotionListener(mouseInputAdapterMoveShape);
+
+        panelBody.setLayout(new BoxLayout(panelBody, BoxLayout.LINE_AXIS));
+        panelBody.add(Box.createHorizontalStrut(10));
+        panelBody.add(panelBoard);
+        panelBody.add(Box.createHorizontalStrut(10));
 
     }
 
@@ -88,6 +90,10 @@ public class PanelEditorLevel extends Panel {
             }
 
         }
+
+    }
+
+    private class MouseInputAdapterMove extends MouseInputAdapter {
 
     }
 
