@@ -6,11 +6,10 @@
 package com.andersoncarlosfs.tangram.view;
 
 import java.awt.CardLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -21,8 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
-import org.jboss.weld.environment.se.bindings.Parameters;
-import org.jboss.weld.environment.se.events.ContainerInitialized;
 
 /**
  *
@@ -88,16 +85,6 @@ public class FrameMain extends JFrame {
         }
     };
 
-    static {
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException exception) {
-            exception.printStackTrace();
-        }
-
-    }
-
     public FrameMain() {
 
         //
@@ -148,17 +135,29 @@ public class FrameMain extends JFrame {
 
         super.pack();
 
+        super.setLocationRelativeTo(null);
+
     }
 
     /**
      *
-     * @param event
-     * @param parameters
-     * @see JFrame#setVisible(boolean)
+     * @param args the command line arguments
      */
-    public void main(@Observes ContainerInitialized event, @Parameters List<String> parameters) {
-        super.setLocationRelativeTo(null);
-        super.setVisible(true);
+    public static void main(String args[]) {
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException exception) {
+            exception.printStackTrace();
+        }
+
+        /* Create and display the form */
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrameMain().setVisible(true);
+            }
+        });
+
     }
 
 }
