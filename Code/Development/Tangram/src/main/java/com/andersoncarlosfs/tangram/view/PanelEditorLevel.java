@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -29,6 +30,23 @@ public class PanelEditorLevel extends Panel {
     //
     private EditorLevel editorLevel;
 
+    //
+    private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
+
+        private Polygon polygon;
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            super.mousePressed(e); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            super.mouseDragged(e); //To change body of generated methods, choose Tools | Templates.
+        }
+
+    };
+
     public PanelEditorLevel() {
 
         super();
@@ -40,8 +58,6 @@ public class PanelEditorLevel extends Panel {
         panelHeader.setVisible(false);
 
         //Body
-        MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapterMove();
-
         panelBoard.addMouseListener(mouseInputAdapterMoveShape);
         panelBoard.addMouseMotionListener(mouseInputAdapterMoveShape);
 
@@ -90,10 +106,6 @@ public class PanelEditorLevel extends Panel {
             }
 
         }
-
-    }
-
-    private class MouseInputAdapterMove extends MouseInputAdapter {
 
     }
 

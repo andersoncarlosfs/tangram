@@ -30,6 +30,7 @@ public class PanelLobby extends Panel {
     private JButton buttonGoToLevel;
     private JPanel panelImageLogo;
 
+    //
     private ActionListener actionListenerPlayLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
