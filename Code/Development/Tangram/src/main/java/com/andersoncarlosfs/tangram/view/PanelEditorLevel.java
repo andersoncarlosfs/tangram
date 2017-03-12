@@ -14,7 +14,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import static java.awt.image.ImageObserver.WIDTH;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -37,13 +36,12 @@ public class PanelEditorLevel extends Panel {
     private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
 
         private Point point;
-        private Polygon polygon, p;
+        private Polygon polygon;
 
         @Override
         public void mousePressed(MouseEvent e) {
             point = e.getPoint();
             polygon = editorLevel.getPolygon(e.getPoint());
-            System.out.println(polygon);
         }
 
         @Override
@@ -57,13 +55,6 @@ public class PanelEditorLevel extends Panel {
             if (polygon != null) {
                 editorLevel.transform(polygon, affineTransform);
                 panelBoard.repaint();
-                //System.out.println(polygon.getPoint(0) + " " + polygon.getPoint(1) + " " + polygon.getPoint(2));
-                p = polygon;
-                //System.out.println(p + " " +p.getCentroid());
-            } else {
-                
-                    System.out.println(p + " " +p.getCentroid());
-                
             }
         }
 

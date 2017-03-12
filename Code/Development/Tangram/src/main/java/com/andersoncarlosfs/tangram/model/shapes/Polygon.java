@@ -89,8 +89,7 @@ public abstract class Polygon extends java.awt.Polygon {
      */
     public Point[] setPoints(Point[] points) {
         for (int index = 0; index < super.npoints; index++) {
-            super.xpoints[index] = points[index].x;
-            super.ypoints[index] = points[index].y;
+            setPoint(index, points[index]);
         }
         return points;
     }
@@ -110,8 +109,7 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param point
      */
     public void setPoint(int index, Point point) {
-        super.xpoints[index] = point.x;
-        super.ypoints[index] = point.y;
+        setPoint(index, point.x, point.y);
     }
 
     /**
@@ -120,8 +118,7 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param point
      */
     public void setPoint(int index, Point2D point) {
-        super.xpoints[index] = (int) point.getX();
-        super.ypoints[index] = (int) point.getY();
+        setPoint(index, (int) point.getX(), (int) point.getY());
     }
 
     /**
@@ -133,6 +130,7 @@ public abstract class Polygon extends java.awt.Polygon {
     protected void setPoint(int index, int x, int y) {
         super.xpoints[index] = x;
         super.ypoints[index] = y;
+        super.invalidate();
     }
 
     /**
