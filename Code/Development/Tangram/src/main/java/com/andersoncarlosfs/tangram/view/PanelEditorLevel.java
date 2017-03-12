@@ -23,6 +23,7 @@ import java.awt.geom.Point2D;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
@@ -34,9 +35,10 @@ import javax.swing.event.MouseInputAdapter;
 public class PanelEditorLevel extends Panel {
 
     //
+    private JButton buttonSave;
     private JPanel panelBoard;
     //
-    private EditorLevel editorLevel;
+    protected EditorLevel editorLevel;
 
     //
     private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
@@ -120,6 +122,7 @@ public class PanelEditorLevel extends Panel {
         super();
 
         panelBoard = new PanelBoard();
+        buttonSave = new JButton();
 
         //Header
         panelHeader.setVisible(false);

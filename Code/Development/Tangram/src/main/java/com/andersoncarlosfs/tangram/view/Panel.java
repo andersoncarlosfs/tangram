@@ -5,7 +5,6 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
-import com.andersoncarlosfs.tangram.controller.PersistenceLevel;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -18,9 +17,6 @@ public class Panel extends JPanel {
     //
     protected JPanel panelHeader;
     protected JPanel panelBody;
-
-    //
-    private PersistenceLevel persistenceLevel;
 
     public Panel() {
 
@@ -36,33 +32,6 @@ public class Panel extends JPanel {
         super.add(Box.createVerticalStrut(10));
         super.add(panelBody);
         super.add(Box.createVerticalStrut(10));
-
-    }
-
-    protected class JButton extends javax.swing.JButton {
-
-        private Object data;
-
-        public JButton() {
-        }
-
-        public JButton(String text) {
-            super(text);
-        }
-
-        /**
-         * @return the data
-         */
-        public Object getData() {
-            return data;
-        }
-
-        /**
-         * @param data the data to set
-         */
-        public void setData(Object data) {
-            this.data = data;
-        }
 
     }
 

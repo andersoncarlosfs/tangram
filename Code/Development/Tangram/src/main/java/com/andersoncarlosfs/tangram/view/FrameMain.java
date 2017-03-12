@@ -5,7 +5,6 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
-import com.andersoncarlosfs.tangram.controller.PersistenceLevel;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -36,14 +35,13 @@ public class FrameMain extends JFrame {
     private JMenuItem menuItemAbout;
     private JMenuItem menuItemCreateLevel;
     private JMenuItem menuItemCloseLevelEditor;
+    private JMenuItem menuItemSaveLevel;
     private JMenuItem menuItemLeaveLevel;
     private JMenuItem menuItemQuit;
     //
-    private JPanel panelLobby;
-    private JPanel panelEditorLevel;
-    private JPanel panelLevel;
-    //
-    private PersistenceLevel persistenceLevel;
+    protected JPanel panelLobby;
+    protected JPanel panelEditorLevel;
+    protected JPanel panelLevel;
 
     //
     private ActionListener actionListenerQuitApplication = new ActionListener() {
@@ -62,7 +60,24 @@ public class FrameMain extends JFrame {
             //
             FrameMain.this.setTitle("New level");
             //
+            menuItemSaveLevel.setVisible(true);
             menuItemCloseLevelEditor.setVisible(true);
+        }
+    };
+    //
+    private ActionListener actionListenerSaveLevel = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //          
+            ((PanelLobby) panelLobby).persistenceLevel.getLevels().add(((PanelEditorLevel) panelEditorLevel).editorLevel.getLevel());
+            //
+            CardLayout cardLayout = (CardLayout) (FrameMain.this.getContentPane().getLayout());
+            cardLayout.show(FrameMain.this.getContentPane(), panelLobby.getClass().getSimpleName());
+            //            
+            menuItemCloseLevelEditor.setVisible(false);
+            menuItemSaveLevel.setVisible(false);
+            //
+            FrameMain.this.setTitle("Lobby");
         }
     };
     //
@@ -74,11 +89,12 @@ public class FrameMain extends JFrame {
             cardLayout.show(FrameMain.this.getContentPane(), panelLobby.getClass().getSimpleName());
             //            
             menuItemCloseLevelEditor.setVisible(false);
+            menuItemSaveLevel.setVisible(false);
             //
             FrameMain.this.setTitle("Lobby");
         }
     };
-
+    //
     private ActionListener actionListenerLeaveLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -101,6 +117,7 @@ public class FrameMain extends JFrame {
         menuBar = new JMenuBar();
         menuFile = new JMenu();
         menuItemCreateLevel = new JMenuItem();
+        menuItemSaveLevel = new JMenuItem();
         menuItemCloseLevelEditor = new JMenuItem();
         menuItemLeaveLevel = new JMenuItem();
         menuItemQuit = new JMenuItem();
@@ -122,6 +139,11 @@ public class FrameMain extends JFrame {
         menuItemCreateLevel.setText("New level");
         menuItemCreateLevel.addActionListener(actionListenerCreateLevel);
         menuFile.add(menuItemCreateLevel);
+
+        menuItemSaveLevel.setText("Save");
+        menuItemSaveLevel.addActionListener(actionListenerSaveLevel);
+        menuItemSaveLevel.setVisible(false);
+        menuFile.add(menuItemSaveLevel);
 
         menuItemCloseLevelEditor.setText("Close");
         menuItemCloseLevelEditor.addActionListener(actionListenerCloseLevelEditor);

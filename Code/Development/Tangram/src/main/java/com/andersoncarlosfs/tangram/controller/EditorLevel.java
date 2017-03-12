@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.tangram.controller;
 
+import com.andersoncarlosfs.tangram.model.Level;
 import com.andersoncarlosfs.tangram.model.shapes.Parallelogram;
 import com.andersoncarlosfs.tangram.model.shapes.Triangle;
 import com.andersoncarlosfs.tangram.model.shapes.Polygon;
@@ -18,13 +19,13 @@ import java.awt.geom.Point2D;
  * @author Anderson Carlos Ferreira da Silva
  */
 public class EditorLevel {
-
+    
     private Polygon polygons[];
-
+    
     public EditorLevel(int size) {
-
+        
         super();
-
+        
         polygons = new Polygon[7];
 
         //Large triangles
@@ -43,7 +44,7 @@ public class EditorLevel {
 
         //Square
         polygons[6] = new Square(size);
-
+        
     }
 
     /**
@@ -78,4 +79,11 @@ public class EditorLevel {
         }
     }
 
+    /**
+     *
+     */
+    public Level getLevel() {
+        return new Level(polygons, false);
+    }
+    
 }

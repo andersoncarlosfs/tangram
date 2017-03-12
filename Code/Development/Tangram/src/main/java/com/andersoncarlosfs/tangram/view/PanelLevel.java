@@ -6,6 +6,7 @@
 package com.andersoncarlosfs.tangram.view;
 
 import com.andersoncarlosfs.tangram.controller.EditorLevel;
+import com.andersoncarlosfs.tangram.model.Level;
 import com.andersoncarlosfs.tangram.model.shapes.Polygon;
 import com.andersoncarlosfs.tangram.model.strokes.ColorStroke;
 import java.awt.BasicStroke;
@@ -37,6 +38,8 @@ public class PanelLevel extends Panel {
     private JPanel panelBoard;
     //
     private EditorLevel editorLevel;
+
+    protected Level level;
 
     //
     private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
@@ -173,6 +176,11 @@ public class PanelLevel extends Panel {
                     RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
+
+            for (Polygon polygon : level.getPolygons()) {
+                g2d.setColor(Color.ORANGE);
+                g2d.fill(polygon);
+            }
 
             for (Polygon polygon : editorLevel.getPolygons()) {
                 g2d.setColor(polygon.getColor());

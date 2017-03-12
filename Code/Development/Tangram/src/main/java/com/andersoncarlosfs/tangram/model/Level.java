@@ -19,6 +19,11 @@ public class Level {
     public Level() {
     }
 
+    public Level(Polygon[] polygons, boolean complete) {
+        this.polygons = polygons;
+        this.complete = complete;
+    }
+
     /**
      *
      * @return the polygons

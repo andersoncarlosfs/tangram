@@ -17,11 +17,14 @@ import javax.enterprise.context.RequestScoped;
 @RequestScoped
 public class DialogPlayLevel extends Dialog {
 
+    protected boolean play;
+
     //
     private final ActionListener actionListenerPlayLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Play");
+            System.out.println("Play : " + (play = true));
+            dispose();
         }
     };
 
