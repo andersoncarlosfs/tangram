@@ -14,6 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -35,11 +36,13 @@ public class PanelEditorLevel extends Panel {
     //
     private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
 
+        private double angle;
         private Point point;
         private Polygon polygon;
 
         @Override
         public void mousePressed(MouseEvent e) {
+            angle = 0;
             point = e.getPoint();
             polygon = editorLevel.getPolygon(e.getPoint());
         }
@@ -50,11 +53,33 @@ public class PanelEditorLevel extends Panel {
             point = e.getPoint();
         }
 
+        /**
+         * @see
+         * <a href="http://stackoverflow.com/questions/27260445/rotating-a-triangle-around-a-point-java">Rotating
+         * a triangle around a point java</a>
+         *
+         * @param e
+         */
         private void transform(MouseEvent e) {
-            AffineTransform affineTransform = AffineTransform.getTranslateInstance(e.getX() - point.getX(), e.getY() - point.getY());
             if (polygon != null) {
+
+                Point2D point = new Point2D.Double(e.getX() - this.point.x, e.getY() - this.point.y);
+
+                this.angle = -Math.toDegrees(Math.atan2(point.getX(), point.getY())) + 180;
+
+                Point2D centroid = polygon.getCentroid();
+
+                double x = this.point.x - centroid.getX();
+                double y = this.point.y - centroid.getY();
+
+                AffineTransform affineTransform = new AffineTransform();
+                affineTransform.translate(point.getX(), point.getY());
+                affineTransform.rotate(Math.toRadians(angle), x, y);
+
                 editorLevel.transform(polygon, affineTransform);
+
                 panelBoard.repaint();
+
             }
         }
 

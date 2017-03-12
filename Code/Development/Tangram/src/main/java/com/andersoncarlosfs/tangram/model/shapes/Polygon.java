@@ -20,7 +20,6 @@ import java.awt.geom.Point2D;
 public abstract class Polygon extends java.awt.Polygon {
 
     protected int size;
-    private double rotation;
     private Color color;
     private Stroke stroke;
 
@@ -50,25 +49,6 @@ public abstract class Polygon extends java.awt.Polygon {
     public void reset() {
         npoints = getNpoints();
         bounds = null;
-    }
-
-    /**
-     *
-     * @return the rotation
-     */
-    public double getRotation() {
-        return rotation;
-    }
-
-    /**
-     *
-     * @param rotation the rotation to set
-     */
-    public void setRotation(double rotation) {
-        if (rotation == 360) {
-            rotation = 0;
-        }
-        this.rotation = rotation;
     }
 
     /**
