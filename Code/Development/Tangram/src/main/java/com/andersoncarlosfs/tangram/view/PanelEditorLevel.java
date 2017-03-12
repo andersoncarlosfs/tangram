@@ -69,12 +69,12 @@ public class PanelEditorLevel extends Panel {
 
                 Point2D centroid = polygon.getCentroid();
 
-                double x = this.point.x - centroid.getX();
-                double y = this.point.y - centroid.getY();
+                double x = e.getX() - centroid.getX();
+                double y = e.getY() - centroid.getY();
 
                 AffineTransform affineTransform = new AffineTransform();
-                affineTransform.translate(point.getX(), point.getY());
-                affineTransform.rotate(Math.toRadians(angle), x, y);
+                affineTransform.translate(x, y);
+                affineTransform.rotate(Math.toRadians(angle), this.point.x - x, this.point.y - y);
 
                 editorLevel.transform(polygon, affineTransform);
 
