@@ -50,7 +50,6 @@ public class PanelEditorLevel extends Panel {
         @Override
         public void mouseDragged(MouseEvent e) {
             transform(e);
-            point = e.getPoint();
         }
 
         /**
@@ -63,14 +62,16 @@ public class PanelEditorLevel extends Panel {
         private void transform(MouseEvent e) {
             if (polygon != null) {
 
-                Point2D point = new Point2D.Double(e.getX() - this.point.x, e.getY() - this.point.y);
+                Point point = e.getPoint();
+
+                point = new Point(point.x - this.point.x, point.y - this.point.y);
 
                 this.angle = -Math.toDegrees(Math.atan2(point.getX(), point.getY())) + 180;
 
-                Point2D centroid = polygon.getCentroid();
+                Point centroid = polygon.getCentroid();
 
-                double x = e.getX() - centroid.getX();
-                double y = e.getY() - centroid.getY();
+                int x = e.getX() - centroid.x;
+                int y = e.getY() - centroid.y;
 
                 AffineTransform affineTransform = new AffineTransform();
                 affineTransform.translate(x, y);
@@ -81,6 +82,7 @@ public class PanelEditorLevel extends Panel {
                 panelBoard.repaint();
 
             }
+            this.point = e.getPoint();
         }
 
     };

@@ -178,7 +178,7 @@ public abstract class Polygon extends java.awt.Polygon {
      *
      * @return the centroid
      */
-    public final Point2D getCentroid() {
+    public final Point getCentroid() {
         int i;
         int j;
         double factor;
@@ -198,7 +198,7 @@ public abstract class Polygon extends java.awt.Polygon {
         x *= factor;
         y *= factor;
 
-        return new Point.Double(x, y);
+        return new Point((int) x, (int) y);
     }
 
     /**
