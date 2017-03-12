@@ -14,7 +14,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -56,11 +55,11 @@ public class PanelLobby extends Panel {
             System.out.println("Next");
         }
     };
-
+    
     public PanelLobby() {
-
+        
         super();
-
+        
         panelImageLogo = new JPanel();
         buttonGoToLevel = new JButton();
         buttonNextPage = new JButton();
@@ -75,14 +74,14 @@ public class PanelLobby extends Panel {
         panelImageLogo.setPreferredSize(new Dimension(600, 200));
         panelImageLogo.setMaximumSize(new Dimension(Short.MAX_VALUE, 250));
         panelImageLogo.setBorder(titledBorderLogo);
-
+        
         buttonGoToLevel.setText("Go to level");
         buttonGoToLevel.setPreferredSize(new Dimension(200, 200));
         buttonGoToLevel.setMaximumSize(new Dimension(250, 250));
         buttonGoToLevel.setHorizontalTextPosition(AbstractButton.CENTER);
         buttonGoToLevel.setVerticalTextPosition(AbstractButton.BOTTOM);
         buttonGoToLevel.addActionListener(actionListenerPlayLevel);
-
+        
         panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.LINE_AXIS));
         panelHeader.add(Box.createHorizontalGlue());
         panelHeader.add(Box.createHorizontalStrut(10));
@@ -95,15 +94,17 @@ public class PanelLobby extends Panel {
         //Body
         buttonPreviousPage.setText("<");
         buttonPreviousPage.setMaximumSize(new Dimension(0, Short.MAX_VALUE));
-
+        buttonPreviousPage.addActionListener(actionListenerPreviousLevels);
+        
         buttonNextPage.setText(">");
         buttonNextPage.setMaximumSize(new Dimension(0, Short.MAX_VALUE));
-
+        buttonNextPage.addActionListener(actionListenerNextLevels);
+        
         JPanel panelNavigator = new JPanel();
         JPanel panelLevel = new JPanel();
-
+        
         panelLevel.setLayout(new BoxLayout(panelLevel, BoxLayout.PAGE_AXIS));
-
+        
         for (int i = 0; i < 3; i++) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
@@ -122,7 +123,7 @@ public class PanelLobby extends Panel {
                 panelLevel.add(Box.createVerticalStrut(10));
             }
         }
-
+        
         panelNavigator.setLayout(new BoxLayout(panelNavigator, BoxLayout.LINE_AXIS));
         panelNavigator.add(Box.createHorizontalGlue());
         panelNavigator.add(Box.createHorizontalStrut(10));
@@ -133,11 +134,11 @@ public class PanelLobby extends Panel {
         panelNavigator.add(buttonNextPage);
         panelNavigator.add(Box.createHorizontalStrut(10));
         panelNavigator.add(Box.createHorizontalGlue());
-
+        
         panelBody.setLayout(new BoxLayout(panelBody, BoxLayout.PAGE_AXIS));
         panelBody.add(panelNavigator);
         panelBody.add(Box.createVerticalGlue());
-
+        
     }
-
+    
 }
