@@ -65,13 +65,12 @@ public abstract class Polygon extends java.awt.Polygon {
 
     /**
      *
-     * @return the points
+     * @param points
      */
-    public Point[] setPoints(Point[] points) {
+    public void setPoints(Point[] points) {
         for (int index = 0; index < super.npoints; index++) {
             setPoint(index, points[index]);
         }
-        return points;
     }
 
     /**
@@ -214,6 +213,51 @@ public abstract class Polygon extends java.awt.Polygon {
      */
     public final boolean isClockwise() {
         return getSignedArea() < 0;
+    }
+
+    /**
+     *
+     * @see
+     * <a href="http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment">Shortest
+     * distance between a point and a line segment</a>
+     *
+     * @param point
+     * @return
+     */
+    public double getShortestDistance(Point point) {
+        int i;
+        int j;
+        double x;
+        double y;
+        double z;
+
+        double distance = Double.MAX_VALUE;
+
+        for (i = 0; i < npoints; i++) {
+
+            j = (i + 1) % npoints;
+
+            x = super.xpoints[j] - super.xpoints[i];
+            y = super.ypoints[j] - super.ypoints[i];
+
+            z = ((point.x - super.xpoints[i]) * x + (point.y - super.ypoints[i]) * y) / (x * x) + (y * y);
+
+            if (z > 1) {
+                z = 1;
+            }
+            if (z < 0) {
+                z = 0;
+            }
+
+            x = (super.xpoints[i] + z * x) - point.x;
+            y = (super.ypoints[i] + z * y) - point.y;
+
+            distance = Math.min(distance, Math.sqrt((x * x) + (y * y)));
+
+        }
+
+        return distance;
+
     }
 
 }

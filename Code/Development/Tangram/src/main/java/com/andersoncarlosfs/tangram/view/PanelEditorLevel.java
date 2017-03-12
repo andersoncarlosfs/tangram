@@ -14,7 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
+import java.awt.geom.Ellipse2D;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -36,15 +36,14 @@ public class PanelEditorLevel extends Panel {
     //
     private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
 
+        private boolean rotate;
         private double angle;
         private Point point;
         private Polygon polygon;
 
         @Override
         public void mousePressed(MouseEvent e) {
-            angle = 0;
-            point = e.getPoint();
-            polygon = editorLevel.getPolygon(e.getPoint());
+            select(e);
         }
 
         @Override
@@ -75,7 +74,10 @@ public class PanelEditorLevel extends Panel {
 
                 AffineTransform affineTransform = new AffineTransform();
                 affineTransform.translate(x, y);
-                affineTransform.rotate(Math.toRadians(angle), this.point.x - x, this.point.y - y);
+
+                if (!rotate) {
+                    affineTransform.rotate(Math.toRadians(angle), this.point.x - x, this.point.y - y);
+                }
 
                 editorLevel.transform(polygon, affineTransform);
 
@@ -83,6 +85,29 @@ public class PanelEditorLevel extends Panel {
 
             }
             this.point = e.getPoint();
+        }
+
+        /**
+         *
+         * @param e
+         */
+        private void select(MouseEvent e) {
+
+            point = e.getPoint();
+            polygon = editorLevel.getPolygon(e.getPoint());
+
+            if (polygon != null) {
+
+                angle = 0;
+
+                Point centroid = polygon.getCentroid();
+                double radius = polygon.getShortestDistance(point);
+                double x = centroid.x - radius / 2;
+                double y = centroid.y - radius / 2;
+                rotate = new Ellipse2D.Double(x, y, radius, radius).contains(point);
+
+            }
+
         }
 
     };
