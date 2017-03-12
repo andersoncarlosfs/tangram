@@ -75,9 +75,7 @@ public class PanelEditorLevel extends Panel {
 
             if (polygon != null) {
 
-                Point point = new Point(e.getX() - this.point.x, e.getY() - this.point.y);
-
-                this.angle = -Math.toDegrees(Math.atan2(point.getX(), point.getY())) + 180;
+                this.angle = -Math.toDegrees(Math.atan2(e.getY(), e.getX())) + 45;
 
                 Point2D centroid = polygon.getCentroid();
 
@@ -88,7 +86,7 @@ public class PanelEditorLevel extends Panel {
                 affineTransform.translate(x, y);
 
                 if (!rotate) {
-                    affineTransform.rotate(Math.toRadians(angle), this.point.x - x, this.point.y - y);
+                    affineTransform.rotate(Math.toRadians(angle), centroid.getX(), centroid.getY());
                 }
 
                 editorLevel.transform(polygon, affineTransform);
