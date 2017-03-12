@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
+import com.andersoncarlosfs.tangram.controller.PersistenceLevel;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -35,10 +36,14 @@ public class FrameMain extends JFrame {
     private JMenuItem menuItemAbout;
     private JMenuItem menuItemCreateLevel;
     private JMenuItem menuItemCloseLevelEditor;
+    private JMenuItem menuItemLeaveLevel;
     private JMenuItem menuItemQuit;
     //
     private JPanel panelLobby;
     private JPanel panelEditorLevel;
+    private JPanel panelLevel;
+    //
+    private PersistenceLevel persistenceLevel;
 
     private ActionListener actionListenerQuitApplication = new ActionListener() {
         @Override
@@ -66,22 +71,37 @@ public class FrameMain extends JFrame {
             //
             CardLayout cardLayout = (CardLayout) (FrameMain.this.getContentPane().getLayout());
             cardLayout.show(FrameMain.this.getContentPane(), panelLobby.getClass().getSimpleName());
-            //
-            FrameMain.this.setTitle("New level");
-            //
+            //            
             menuItemCloseLevelEditor.setVisible(false);
+            //
+            FrameMain.this.setTitle("Lobby");
+        }
+    };
+
+    private ActionListener actionListenerLeaveLevel = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //
+            CardLayout cardLayout = (CardLayout) (FrameMain.this.getContentPane().getLayout());
+            cardLayout.show(FrameMain.this.getContentPane(), panelLobby.getClass().getSimpleName());
+            //            
+            menuItemLeaveLevel.setVisible(false);
+            //
+            FrameMain.this.setTitle("Lobby");
         }
     };
 
     public FrameMain() {
 
         //
+        panelLevel = new PanelLevel();
         panelEditorLevel = new PanelEditorLevel();
         panelLobby = new PanelLobby();
         menuBar = new JMenuBar();
         menuFile = new JMenu();
         menuItemCreateLevel = new JMenuItem();
         menuItemCloseLevelEditor = new JMenuItem();
+        menuItemLeaveLevel = new JMenuItem();
         menuItemQuit = new JMenuItem();
         menuHelp = new JMenu();
         menuItemAbout = new JMenuItem();
@@ -90,6 +110,7 @@ public class FrameMain extends JFrame {
         super.getContentPane().setLayout(new CardLayout());
         super.getContentPane().add(panelLobby, panelLobby.getClass().getSimpleName());
         super.getContentPane().add(panelEditorLevel, panelEditorLevel.getClass().getSimpleName());
+        super.getContentPane().add(panelLevel, panelLevel.getClass().getSimpleName());
 
         super.setTitle("Lobby");
         super.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -105,6 +126,11 @@ public class FrameMain extends JFrame {
         menuItemCloseLevelEditor.addActionListener(actionListenerCloseLevelEditor);
         menuItemCloseLevelEditor.setVisible(false);
         menuFile.add(menuItemCloseLevelEditor);
+
+        menuItemLeaveLevel.setText("Leave");
+        menuItemLeaveLevel.addActionListener(actionListenerLeaveLevel);
+        menuItemLeaveLevel.setVisible(false);
+        menuFile.add(menuItemLeaveLevel);
 
         menuItemQuit.setText("Quit");
         menuItemQuit.addActionListener(actionListenerQuitApplication);

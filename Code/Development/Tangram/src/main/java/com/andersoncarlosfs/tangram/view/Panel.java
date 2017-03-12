@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.tangram.view;
 
+import com.andersoncarlosfs.tangram.controller.PersistenceLevel;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -17,6 +18,9 @@ public class Panel extends JPanel {
     //
     protected JPanel panelHeader;
     protected JPanel panelBody;
+
+    //
+    private PersistenceLevel persistenceLevel;
 
     public Panel() {
 
