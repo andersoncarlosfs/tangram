@@ -13,6 +13,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import static java.awt.image.ImageObserver.WIDTH;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -35,47 +37,33 @@ public class PanelEditorLevel extends Panel {
     private MouseInputAdapter mouseInputAdapterMoveShape = new MouseInputAdapter() {
 
         private Point point;
-        private Polygon polygon;
+        private Polygon polygon, p;
 
         @Override
         public void mousePressed(MouseEvent e) {
-            Point point = e.getPoint();
-            polygon = editorLevel.getPolygon(point);
-            if (polygon != null) {
-                this.point = polygon.getLocation();
-                int x = this.point.x - point.x;
-                int y = this.point.y - point.y;
-                this.point = new Point(x, y);
-               // System.out.println(e.getPoint());
-            }
+            point = e.getPoint();
+            polygon = editorLevel.getPolygon(e.getPoint());
+            System.out.println(polygon);
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            if (polygon != null) {
-                Point point = e.getPoint();
-                int x = this.point.x + point.x;
-                int y = this.point.y + point.y;
-                point = new Point(x, y);
-                polygon.translate(point);
-                repaint();
-            }
+            transform(e);
+            point = e.getPoint();
         }
 
-        @Override
-        public void mouseReleased(MouseEvent e) {
+        private void transform(MouseEvent e) {
+            AffineTransform affineTransform = AffineTransform.getTranslateInstance(e.getX() - point.getX(), e.getY() - point.getY());
             if (polygon != null) {
-                Point point = e.getPoint();
-                int x = this.point.x + point.x;
-                int y = this.point.y + point.y;
-                point = new Point(x, y);
-                polygon.translate(point);
-                repaint();
+                editorLevel.transform(polygon, affineTransform);
+                panelBoard.repaint();
+                //System.out.println(polygon.getPoint(0) + " " + polygon.getPoint(1) + " " + polygon.getPoint(2));
+                p = polygon;
+                //System.out.println(p + " " +p.getCentroid());
             } else {
-                polygon = null;
-                for (Polygon polygon1 : editorLevel.getPolygons()) {
-                    System.out.println(polygon1.toString() + "" + polygon1.getLocation().toString());
-                }
+                
+                    System.out.println(p + " " +p.getCentroid());
+                
             }
         }
 
@@ -85,7 +73,6 @@ public class PanelEditorLevel extends Panel {
 
         super();
 
-        editorLevel = new EditorLevel();
         panelBoard = new PanelBoard();
 
         //Header
@@ -105,9 +92,13 @@ public class PanelEditorLevel extends Panel {
     @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
+
             int size = Math.min(getWidth(), getHeight());
+
             panelBoard.setSize(new Dimension(size, size));
-            editorLevel.setSize((int) (size * 0.5));
+
+            editorLevel = new EditorLevel((int) (size * 0.5));
+
         }
         super.setVisible(aFlag);
     }
@@ -128,16 +119,14 @@ public class PanelEditorLevel extends Panel {
 
             super.paintComponent(g);
 
-            Graphics2D g2d;
-
+            Graphics2D g2d = (Graphics2D) g.create();
             for (Polygon polygon : editorLevel.getPolygons()) {
-                g2d = (Graphics2D) g.create();
                 g2d.setColor(polygon.getColor());
                 g2d.fill(polygon);
                 g2d.setColor(Color.BLACK);
                 g2d.draw(polygon);
-                g2d.dispose();
             }
+            g2d.dispose();
 
         }
 

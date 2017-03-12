@@ -5,20 +5,14 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
-import java.awt.Point;
-
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
 public class Square extends Polygon {
 
-    public Square() {
-        super();
-    }
-
-    public Square(Point point, int size) {
-        super(point, size);
+    public Square(int size) {
+        super(size);
     }
 
     /**
@@ -34,7 +28,7 @@ public class Square extends Polygon {
      *
      */
     @Override
-    protected void render() {
+    protected void init() {
 
         int size = (int) Math.sqrt(2 * Math.pow(super.size / 2, 2)) / 2;
 

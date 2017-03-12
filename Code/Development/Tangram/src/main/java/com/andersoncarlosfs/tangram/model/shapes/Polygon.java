@@ -9,7 +9,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
@@ -24,26 +23,19 @@ public abstract class Polygon extends java.awt.Polygon {
     private double rotation;
     private Color color;
     private Stroke stroke;
-    private AffineTransform affineTransform;
 
-    public Polygon() {
+    public Polygon(int size) {
         super.npoints = getNpoints();
-        color = Color.LIGHT_GRAY;
-        stroke = new BasicStroke();
-    }
-
-    public Polygon(Point point, int size) {
-        this();
+        this.color = Color.LIGHT_GRAY;
+        this.stroke = new BasicStroke();
         this.size = size;
-        super.xpoints[0] = point.x;
-        super.ypoints[0] = point.y;
-        render();
+        init();
     }
 
     /**
      *
      */
-    protected abstract void render();
+    protected abstract void init();
 
     /**
      *
@@ -52,20 +44,12 @@ public abstract class Polygon extends java.awt.Polygon {
     public abstract int getNpoints();
 
     /**
-     *
-     * @return the size
+     * @see java.awt.Polygon#reset()
      */
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     *
-     * @param size the size to set
-     */
-    public void setSize(int size) {
-        this.size = size;
-        render();
+    @Override
+    public void reset() {
+        npoints = getNpoints();
+        bounds = null;
     }
 
     /**
@@ -89,10 +73,34 @@ public abstract class Polygon extends java.awt.Polygon {
 
     /**
      *
+     * @return the points
+     */
+    public Point[] getPoints() {
+        Point[] points = new Point[super.npoints];
+        for (int index = 0; index < super.npoints; index++) {
+            points[index] = getPoint(index);
+        }
+        return points;
+    }
+
+    /**
+     *
+     * @return the points
+     */
+    public Point[] setPoints(Point[] points) {
+        for (int index = 0; index < super.npoints; index++) {
+            super.xpoints[index] = points[index].x;
+            super.ypoints[index] = points[index].y;
+        }
+        return points;
+    }
+
+    /**
+     *
      * @param index
      * @return the point
      */
-    public final Point getPoint(int index) {
+    public Point getPoint(int index) {
         return new Point(super.xpoints[index], super.ypoints[index]);
     }
 
@@ -101,9 +109,19 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param index
      * @param point
      */
-    protected final void setPoint(int index, Point point) {
+    public void setPoint(int index, Point point) {
         super.xpoints[index] = point.x;
         super.ypoints[index] = point.y;
+    }
+
+    /**
+     *
+     * @param index
+     * @param point
+     */
+    public void setPoint(int index, Point2D point) {
+        super.xpoints[index] = (int) point.getX();
+        super.ypoints[index] = (int) point.getY();
     }
 
     /**
@@ -112,27 +130,9 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param x
      * @param y
      */
-    protected final void setPoint(int index, int x, int y) {
+    protected void setPoint(int index, int x, int y) {
         super.xpoints[index] = x;
         super.ypoints[index] = y;
-    }
-
-    /**
-     *
-     * @return the location
-     */
-    public Point getLocation() {
-        return new Point(super.xpoints[0], super.ypoints[0]);
-    }
-
-    /**
-     *
-     * @param point the location to set
-     */
-    public void setLocation(Point point) {
-        super.xpoints[0] = point.x;
-        super.ypoints[0] = point.y;
-        render();
     }
 
     /**
@@ -165,22 +165,6 @@ public abstract class Polygon extends java.awt.Polygon {
      */
     public void setStroke(Stroke stroke) {
         this.stroke = stroke;
-    }
-
-    /**
-     *
-     * @return the affineTransform
-     */
-    public AffineTransform getAffineTransform() {
-        return affineTransform;
-    }
-
-    /**
-     *
-     * @param affineTransform the affineTransform to set
-     */
-    public void setAffineTransform(AffineTransform affineTransform) {
-        this.affineTransform = affineTransform;
     }
 
     /**
@@ -252,25 +236,6 @@ public abstract class Polygon extends java.awt.Polygon {
      */
     public final boolean isClockwise() {
         return getSignedArea() < 0;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void reset() {
-        npoints = getNpoints();
-        bounds = null;
-    }
-
-    /**
-     *
-     * @param point
-     */
-    public void translate(Point point) {
-        int x = super.xpoints[0] + point.x;
-        int y = super.ypoints[0] + point.y;
-        setLocation(new Point(x, y));
     }
 
 }

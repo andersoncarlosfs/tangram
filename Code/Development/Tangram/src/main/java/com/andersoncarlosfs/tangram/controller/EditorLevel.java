@@ -10,50 +10,40 @@ import com.andersoncarlosfs.tangram.model.shapes.Triangle;
 import com.andersoncarlosfs.tangram.model.shapes.Polygon;
 import com.andersoncarlosfs.tangram.model.shapes.Square;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-public class EditorLevel extends EditorPolygon {
+public class EditorLevel {
 
-    private final Polygon polygons[];
+    private Polygon polygons[];
 
-    public EditorLevel() {
+    public EditorLevel(int size) {
 
         super();
 
         polygons = new Polygon[7];
 
         //Large triangles
-        polygons[0] = new Triangle.Large();
-        polygons[1] = new Triangle.Large();
+        polygons[0] = new Triangle.Large(size);
+        polygons[1] = new Triangle.Large(size);
 
         //Medium triangle
-        polygons[2] = new Triangle.Medium();
+        polygons[2] = new Triangle.Medium(size);
 
         //Small triangles
-        polygons[3] = new Triangle.Small();
-        polygons[4] = new Triangle.Small();
+        polygons[3] = new Triangle.Small(size);
+        polygons[4] = new Triangle.Small(size);
 
         //Parallelogram
-        polygons[5] = new Parallelogram();
+        polygons[5] = new Parallelogram(size);
 
         //Square
-        polygons[6] = new Square();
+        polygons[6] = new Square(size);
 
-    }
-
-    /**
-     *
-     * @param size
-     */
-    @Override
-    public void setSize(int size) {
-        super.setSize(size);
-        for (Polygon polygon : polygons) {
-            polygon.setSize(size);
-        }
     }
 
     /**
@@ -73,6 +63,19 @@ public class EditorLevel extends EditorPolygon {
             }
         }
         return null;
+    }
+
+    /**
+     *
+     * @param polygon
+     * @param affineTransform
+     */
+    public void transform(Polygon polygon, AffineTransform affineTransform) {
+        for (int index = 0; index < polygon.getNpoints(); index++) {
+            Point2D point = polygon.getPoint(index);
+            point = affineTransform.transform(point, null);
+            polygon.setPoint(index, point);
+        }
     }
 
 }

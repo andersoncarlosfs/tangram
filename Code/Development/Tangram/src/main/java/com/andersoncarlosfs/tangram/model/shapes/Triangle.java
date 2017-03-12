@@ -5,20 +5,14 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
-import java.awt.Point;
-
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
-public class Triangle extends Polygon {
+public abstract class Triangle extends Polygon {
 
-    public Triangle() {
-        super();
-    }
-
-    public Triangle(Point point, int size) {
-        super(point, size);
+    public Triangle(int size) {
+        super(size);
     }
 
     /**
@@ -34,7 +28,7 @@ public class Triangle extends Polygon {
      *
      */
     @Override
-    protected void render() {
+    protected void init() {
         //setPoint(0, xpoints[0], ypoints[0]);
         setPoint(1, xpoints[0] + size, ypoints[0]);
         setPoint(2, xpoints[0] + (int) (size / 2), ypoints[0] + (int) (size / 2));
@@ -43,10 +37,14 @@ public class Triangle extends Polygon {
 
     public static class Large extends Triangle {
 
+        public Large(int size) {
+            super(size);
+        }
+
         @Override
-        protected void render() {
+        protected void init() {
             //int size = super.size;
-            super.render();
+            super.init();
             //super.size = size;
         }
 
@@ -54,11 +52,15 @@ public class Triangle extends Polygon {
 
     public static class Medium extends Triangle {
 
+        public Medium(int size) {
+            super(size);
+        }
+
         @Override
-        protected void render() {
+        protected void init() {
             int size = super.size;
             super.size = (int) Math.sqrt(2 * Math.pow(super.size / 2, 2));
-            super.render();
+            super.init();
             super.size = size;
         }
 
@@ -66,11 +68,15 @@ public class Triangle extends Polygon {
 
     public static class Small extends Triangle {
 
+        public Small(int size) {
+            super(size);
+        }
+
         @Override
-        protected void render() {
+        protected void init() {
             int size = super.size;
             super.size = (int) super.size / 2;
-            super.render();
+            super.init();
             super.size = size;
         }
 

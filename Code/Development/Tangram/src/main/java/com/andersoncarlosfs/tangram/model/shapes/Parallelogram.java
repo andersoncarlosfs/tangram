@@ -5,20 +5,14 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
-import java.awt.Point;
-
 /**
  *
  * @author Anderson Carlos Ferreira da Silva
  */
 public class Parallelogram extends Polygon {
 
-    public Parallelogram() {
-        super();
-    }
-
-    public Parallelogram(Point point, int size) {
-        super(point, size);
+    public Parallelogram(int size) {
+        super(size);
     }
 
     /**
@@ -34,7 +28,7 @@ public class Parallelogram extends Polygon {
      *
      */
     @Override
-    protected void render() {
+    protected void init() {
 
         int width = (int) super.size / 2;
         int height = (int) Math.sqrt(2 * Math.pow(width, 2)) / 2;
