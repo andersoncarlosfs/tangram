@@ -39,17 +39,44 @@ public class PanelEditorLevel extends Panel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-                   
+            Point point = e.getPoint();
+            polygon = editorLevel.getPolygon(point);
+            if (polygon != null) {
+                this.point = polygon.getLocation();
+                int x = this.point.x - point.x;
+                int y = this.point.y - point.y;
+                this.point = new Point(x, y);
+               // System.out.println(e.getPoint());
+            }
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-
+            if (polygon != null) {
+                Point point = e.getPoint();
+                int x = this.point.x + point.x;
+                int y = this.point.y + point.y;
+                point = new Point(x, y);
+                polygon.translate(point);
+                repaint();
+            }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-        
+            if (polygon != null) {
+                Point point = e.getPoint();
+                int x = this.point.x + point.x;
+                int y = this.point.y + point.y;
+                point = new Point(x, y);
+                polygon.translate(point);
+                repaint();
+            } else {
+                polygon = null;
+                for (Polygon polygon1 : editorLevel.getPolygons()) {
+                    System.out.println(polygon1.toString() + "" + polygon1.getLocation().toString());
+                }
+            }
         }
 
     };

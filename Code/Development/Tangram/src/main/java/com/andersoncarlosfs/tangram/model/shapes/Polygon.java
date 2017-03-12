@@ -9,6 +9,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
@@ -23,6 +24,7 @@ public abstract class Polygon extends java.awt.Polygon {
     private double rotation;
     private Color color;
     private Stroke stroke;
+    private AffineTransform affineTransform;
 
     public Polygon() {
         super.npoints = getNpoints();
@@ -167,6 +169,22 @@ public abstract class Polygon extends java.awt.Polygon {
 
     /**
      *
+     * @return the affineTransform
+     */
+    public AffineTransform getAffineTransform() {
+        return affineTransform;
+    }
+
+    /**
+     *
+     * @param affineTransform the affineTransform to set
+     */
+    public void setAffineTransform(AffineTransform affineTransform) {
+        this.affineTransform = affineTransform;
+    }
+
+    /**
+     *
      * @return the signed area
      */
     private double getSignedArea() {
@@ -243,6 +261,16 @@ public abstract class Polygon extends java.awt.Polygon {
     public void reset() {
         npoints = getNpoints();
         bounds = null;
+    }
+
+    /**
+     *
+     * @param point
+     */
+    public void translate(Point point) {
+        int x = super.xpoints[0] + point.x;
+        int y = super.ypoints[0] + point.y;
+        setLocation(new Point(x, y));
     }
 
 }
