@@ -39,4 +39,31 @@ public class Panel extends JPanel {
 
     }
 
+    protected class JButton extends javax.swing.JButton {
+
+        private Object data;
+
+        public JButton() {
+        }
+
+        public JButton(String text) {
+            super(text);
+        }
+
+        /**
+         * @return the data
+         */
+        public Object getData() {
+            return data;
+        }
+
+        /**
+         * @param data the data to set
+         */
+        public void setData(Object data) {
+            this.data = data;
+        }
+
+    }
+
 }

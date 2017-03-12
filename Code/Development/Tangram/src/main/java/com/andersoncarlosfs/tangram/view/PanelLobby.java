@@ -27,6 +27,8 @@ import javax.swing.border.TitledBorder;
 public class PanelLobby extends Panel {
 
     //
+    private JButton buttonPreviousPage;
+    private JButton buttonNextPage;
     private JButton buttonGoToLevel;
     private JPanel panelImageLogo;
 
@@ -40,6 +42,20 @@ public class PanelLobby extends Panel {
             dialogPlayLevel.setVisible(true);
         }
     };
+    //
+    private ActionListener actionListenerPreviousLevels = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Previous");
+        }
+    };
+    //
+    private ActionListener actionListenerNextLevels = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Next");
+        }
+    };
 
     public PanelLobby() {
 
@@ -47,6 +63,8 @@ public class PanelLobby extends Panel {
 
         panelImageLogo = new JPanel();
         buttonGoToLevel = new JButton();
+        buttonNextPage = new JButton();
+        buttonPreviousPage = new JButton();
 
         //Header
         TitledBorder titledBorderLogo;
@@ -75,26 +93,49 @@ public class PanelLobby extends Panel {
         panelHeader.add(Box.createHorizontalGlue());
 
         //Body
-        panelBody.setLayout(new BoxLayout(panelBody, BoxLayout.PAGE_AXIS));
+        buttonPreviousPage.setText("<");
+        buttonPreviousPage.setMaximumSize(new Dimension(0, Short.MAX_VALUE));
+
+        buttonNextPage.setText(">");
+        buttonNextPage.setMaximumSize(new Dimension(0, Short.MAX_VALUE));
+
+        JPanel panelNavigator = new JPanel();
+        JPanel panelLevel = new JPanel();
+
+        panelLevel.setLayout(new BoxLayout(panelLevel, BoxLayout.PAGE_AXIS));
+
         for (int i = 0; i < 3; i++) {
-            JPanel levelPanel = new JPanel();
-            levelPanel.setLayout(new BoxLayout(levelPanel, BoxLayout.LINE_AXIS));
-            levelPanel.add(Box.createHorizontalGlue());
-            levelPanel.add(Box.createHorizontalStrut(10));
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
             for (int j = 0; j < 3; j++) {
                 JButton b = new JButton("Level " + i + j);
                 b.setPreferredSize(new Dimension(150, 150));
                 b.setMaximumSize(new Dimension(200, 200));
                 b.addActionListener(actionListenerPlayLevel);
-                levelPanel.add(b);
-                levelPanel.add(Box.createHorizontalStrut(10));
+                panel.add(b);
+                if (j + 1 < 3) {
+                    panel.add(Box.createHorizontalStrut(10));
+                }
             }
-            levelPanel.add(Box.createHorizontalGlue());
-            panelBody.add(levelPanel);
+            panelLevel.add(panel);
             if (i + 1 < 3) {
-                panelBody.add(Box.createVerticalStrut(10));
+                panelLevel.add(Box.createVerticalStrut(10));
             }
         }
+
+        panelNavigator.setLayout(new BoxLayout(panelNavigator, BoxLayout.LINE_AXIS));
+        panelNavigator.add(Box.createHorizontalGlue());
+        panelNavigator.add(Box.createHorizontalStrut(10));
+        panelNavigator.add(buttonPreviousPage);
+        panelNavigator.add(Box.createHorizontalStrut(10));
+        panelNavigator.add(panelLevel);
+        panelNavigator.add(Box.createHorizontalStrut(10));
+        panelNavigator.add(buttonNextPage);
+        panelNavigator.add(Box.createHorizontalStrut(10));
+        panelNavigator.add(Box.createHorizontalGlue());
+
+        panelBody.setLayout(new BoxLayout(panelBody, BoxLayout.PAGE_AXIS));
+        panelBody.add(panelNavigator);
         panelBody.add(Box.createVerticalGlue());
 
     }

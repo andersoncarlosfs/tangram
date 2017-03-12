@@ -45,13 +45,14 @@ public class FrameMain extends JFrame {
     //
     private PersistenceLevel persistenceLevel;
 
+    //
     private ActionListener actionListenerQuitApplication = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
         }
     };
-
+    //
     private ActionListener actionListenerCreateLevel = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -64,7 +65,7 @@ public class FrameMain extends JFrame {
             menuItemCloseLevelEditor.setVisible(true);
         }
     };
-
+    //
     private ActionListener actionListenerCloseLevelEditor = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
