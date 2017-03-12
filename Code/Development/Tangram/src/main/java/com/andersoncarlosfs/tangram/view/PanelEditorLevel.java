@@ -14,10 +14,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import javax.enterprise.context.ApplicationScoped;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -46,34 +48,41 @@ public class PanelEditorLevel extends Panel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            select(e);
+
+            point = e.getPoint();
+
+            polygon = editorLevel.getPolygon(e.getPoint());
+
+            if (polygon != null) {
+                Stroke stroke = new ColorStroke(Color.RED, 2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+                polygon.setStroke(stroke);
+
+                angle = 0;
+
+                Point2D centroid = polygon.getCentroid();
+
+                double radius = polygon.getShortestDistance(point);
+                double x = centroid.getX() - radius / 2;
+                double y = centroid.getY() - radius / 2;
+
+                rotate = new Ellipse2D.Double(x, y, radius, radius).contains(point);
+            }
+
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            transform(e);
-        }
 
-        /**
-         * @see
-         * <a href="http://stackoverflow.com/questions/27260445/rotating-a-triangle-around-a-point-java">Rotating
-         * a triangle around a point java</a>
-         *
-         * @param e
-         */
-        private void transform(MouseEvent e) {
             if (polygon != null) {
 
-                Point point = e.getPoint();
-
-                point = new Point(point.x - this.point.x, point.y - this.point.y);
+                Point point = new Point(e.getX() - this.point.x, e.getY() - this.point.y);
 
                 this.angle = -Math.toDegrees(Math.atan2(point.getX(), point.getY())) + 180;
 
-                Point centroid = polygon.getCentroid();
+                Point2D centroid = polygon.getCentroid();
 
-                int x = e.getX() - centroid.x;
-                int y = e.getY() - centroid.y;
+                double x = e.getX() - centroid.getX();
+                double y = e.getY() - centroid.getY();
 
                 AffineTransform affineTransform = new AffineTransform();
                 affineTransform.translate(x, y);
@@ -87,33 +96,23 @@ public class PanelEditorLevel extends Panel {
                 panelBoard.repaint();
 
             }
+
             this.point = e.getPoint();
+
         }
 
         /**
+         * @see
+         * <a href="http://stackoverflow.com/questions/27260445/rotating-a-triangle-around-a-point-java">Rotating
+         * a triangle around a point java</a>
          *
          * @param e
          */
-        private void select(MouseEvent e) {
-
-            point = e.getPoint();
-            polygon = editorLevel.getPolygon(e.getPoint());
-
-            if (polygon != null) {
-
-                Stroke stroke = new ColorStroke(Color.RED, 2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-                polygon.setStroke(stroke);
-
-                angle = 0;
-
-                Point centroid = polygon.getCentroid();
-                double radius = polygon.getShortestDistance(point);
-                double x = centroid.x - radius / 2;
-                double y = centroid.y - radius / 2;
-                rotate = new Ellipse2D.Double(x, y, radius, radius).contains(point);
-
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            if (this.polygon != null) {
+                polygon.setStroke(new ColorStroke(Color.BLACK));
             }
-
         }
 
     };
@@ -169,6 +168,12 @@ public class PanelEditorLevel extends Panel {
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
+
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE);
+
             for (Polygon polygon : editorLevel.getPolygons()) {
                 g2d.setColor(polygon.getColor());
                 g2d.fill(polygon);

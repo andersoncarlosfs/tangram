@@ -6,7 +6,6 @@
 package com.andersoncarlosfs.tangram.model.shapes;
 
 import com.andersoncarlosfs.tangram.model.strokes.ColorStroke;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Stroke;
@@ -73,6 +72,17 @@ public abstract class Polygon extends java.awt.Polygon {
             setPoint(index, points[index]);
         }
     }
+    
+    
+    /**
+     *
+     * @param points
+     */
+    public void setPoints(Point2D[] points) {
+        for (int index = 0; index < super.npoints; index++) {
+            setPoint(index, points[index]);
+        }
+    }
 
     /**
      *
@@ -98,7 +108,7 @@ public abstract class Polygon extends java.awt.Polygon {
      * @param point
      */
     public void setPoint(int index, Point2D point) {
-        setPoint(index, (int) point.getX(), (int) point.getY());
+        setPoint(index, (int) Math.round(point.getX()), (int) Math.round(point.getY()));
     }
 
     /**
@@ -178,7 +188,7 @@ public abstract class Polygon extends java.awt.Polygon {
      *
      * @return the centroid
      */
-    public final Point getCentroid() {
+    public final Point2D getCentroid() {
         int i;
         int j;
         double factor;
@@ -198,7 +208,7 @@ public abstract class Polygon extends java.awt.Polygon {
         x *= factor;
         y *= factor;
 
-        return new Point((int) x, (int) y);
+        return new Point2D.Double(x, y);
     }
 
     /**
