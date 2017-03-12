@@ -7,11 +7,14 @@ package com.andersoncarlosfs.tangram.view;
 
 import com.andersoncarlosfs.tangram.controller.EditorLevel;
 import com.andersoncarlosfs.tangram.model.shapes.Polygon;
+import com.andersoncarlosfs.tangram.model.strokes.ColorStroke;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
@@ -98,6 +101,9 @@ public class PanelEditorLevel extends Panel {
 
             if (polygon != null) {
 
+                Stroke stroke = new ColorStroke(Color.RED, 2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+                polygon.setStroke(stroke);
+
                 angle = 0;
 
                 Point centroid = polygon.getCentroid();
@@ -166,7 +172,7 @@ public class PanelEditorLevel extends Panel {
             for (Polygon polygon : editorLevel.getPolygons()) {
                 g2d.setColor(polygon.getColor());
                 g2d.fill(polygon);
-                g2d.setColor(Color.BLACK);
+                g2d.setColor(((ColorStroke) polygon.getStroke()).getColor());
                 g2d.draw(polygon);
             }
             g2d.dispose();

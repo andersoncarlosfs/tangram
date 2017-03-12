@@ -5,6 +5,7 @@
  */
 package com.andersoncarlosfs.tangram.model.shapes;
 
+import com.andersoncarlosfs.tangram.model.strokes.ColorStroke;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
@@ -26,7 +27,7 @@ public abstract class Polygon extends java.awt.Polygon {
     public Polygon(int size) {
         super.npoints = getNpoints();
         this.color = Color.LIGHT_GRAY;
-        this.stroke = new BasicStroke();
+        this.stroke = new ColorStroke(Color.BLACK);
         this.size = size;
         init();
     }
